@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// importa el módulo express-partials
+var partials = require('express-partials');
+
 var routes = require('./routes/index');
 // no se hace servir el enrutador users que viene por defecto
 // var users = require('./routes/users');
@@ -14,6 +17,9 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// invoca el módulo express-partials
+app.use(partials());
 
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.ico'));
