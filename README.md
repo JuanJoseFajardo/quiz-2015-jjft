@@ -24,7 +24,7 @@ Actualice GitHub con los cambios realizados en este apartado.<br>
 
 El proyecto desarrollado en esta practica, junto con todas las modificaciones añadidas, debe subirse al repositorio creado en Github por los alumnos.<br>
 
-Entregar en el texto de la entrega a MiriadaX
+Entregar en el texto de la entrega a MiriadaX:
 <ol>
 	<li>El URL al despliegue en Heroku como un enlace clicable.</li>
 	<li>El URL al proyecto en GITHUB como un enlace clicable.</li>
