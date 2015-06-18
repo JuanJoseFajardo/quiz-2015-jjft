@@ -28,7 +28,7 @@ Entregar en el texto de la entrega a MiriadaX
 <ol>
 	<li>El URL al despliegue en Heroku como un enlace clicable.</li>
 	<li>El URL al proyecto en GITHUB como un enlace clicable.</li>
-</ol><br>
+</ol>
 El evaluador debe comprobar que en Heroku se ha desplegado la aplicación con los cambios solicitados y que en GITHUB se ha subido el proyecto y que los cambios solicitados se han introducido en el último commit.
 </p>
 <p>El proyecto plantilla está en el repositorio <a href='https://github.com/jquemada/quiz-2015/'>Quiz-2015</a> del profesor Juan Quemada.</p>
