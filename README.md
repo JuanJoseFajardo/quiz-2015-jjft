@@ -10,11 +10,10 @@ Además se deben añadir los siguientes cambios a Quiz:
 <ol>
 	<li> Modificar el servidor Quiz para añadir un enlace en el píe de página <footer> del marco de las páginas 		renderizadas que apunte a la página de su proyecto en GitHub.</li>
 	<li>Modificar el servidor Quiz para que sirva una nueva página con los datos de los autores de la práctica. 		Este desarrollo se realizará en una rama llamada créditos. Cree la rama creditos y cámbiese a ella para 		hacer el desarrollo pedido en este apartado.</li>
-</ol>
-<ul>
-	<li>Crear un nuevo enlace en la barra de navegación que apunte a la página de créditos. La ruta de acceso a 		esta página debe ser /author.</li>
-	<li>Modifique el router (routers/index.js) para que atienda las peticiones "GET /author" y sirva una nueva 		vista views/author.ejs con los datos de los autores o autor de la página, mostrando el nombre de los 			autores, su fotografía y un pequeño video (opcional) de 30 seg.</li>
-</ul><br>
+	<ul>
+		<li>Crear un nuevo enlace en la barra de navegación que apunte a la página de créditos. La ruta de 			acceso a esta página debe ser /author.</li>
+		<li>Modifique el router (routers/index.js) para que atienda las peticiones "GET /author" y sirva una 			nueva vista views/author.ejs con los datos de los autores o autor de la página, mostrando el nombre 		de los autores, su fotografía y un pequeño video (opcional) de 30 seg.</li>
+	</ul></ol><br>
 Cuando se haya terminado este desarrollo, integrelo en la rama master, y súbalo a GitHub.<br>
 
 Una vez realizados y probados estos cambios, debe crearse una cuenta en heroku para desplegar allí el servidor desarrollado en esta práctica.<br>
@@ -30,13 +29,10 @@ Entregar en el texto de la entrega a MiriadaX
 	<li>El URL al despliegue en Heroku como un enlace clicable.</li>
 	<li>El URL al proyecto en GITHUB como un enlace clicable.</li>
 </ol><br>
-
 El evaluador debe comprobar que en Heroku se ha desplegado la aplicación con los cambios solicitados y que en GITHUB se ha subido el proyecto y que los cambios solicitados se han introducido en el último commit.
 </p>
-
 <p>El proyecto plantilla está en el repositorio <a href='https://github.com/jquemada/quiz-2015/'>Quiz-2015</a> del profesor Juan Quemada.</p>
 <p>Quiz 2015 es un programa de preguntas y respuestas para fomentar el aprendizaje en todas las edades.</p>
-
 <h2>Instalación</h2>
 <ul><li>Ejemplo sencillo para copiar Quiz-2015:</li>
 	<ul>
