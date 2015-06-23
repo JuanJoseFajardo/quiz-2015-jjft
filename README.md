@@ -38,7 +38,7 @@ El evaluador debe comprobar que en Heroku se ha desplegado la aplicación con lo
 	<ul>
     <li>Usar GitHub: usar la interfaz de GitHub para clonar el repositorio.</li>
     <li>Descargar el fichero zip: <a href='https://github.com/juanjosefajardo/quiz-2015/releases'>releases</a>.</li>
-    <li>Descargar el repositorio desde git: <a href='git clone https://github.com/juanjosefajardo/quiz-2015'>git clone https://github.com/juanjosefajardo/quiz-2015</a></li>
+    <li>Descargar el repositorio desde git: <a href='git clone https://github.com/juanjosefajardo/quiz-2015-jjft'>git clone https://github.com/juanjosefajardo/quiz-2015</a></li>
 	</ul>
 </ul>
 <br>
