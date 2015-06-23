@@ -15,5 +15,11 @@ router.get('/quizes/question', quizController.question);
 // GET answer page
 router.get('/quizes/answer'  , quizController.answer);
 
+// GET author credits page
+router.get('/author' , function(req, res)
+	{
+  	res.render('author', { title: 'Quiz' });
+	});
+
 
 module.exports = router;
