@@ -9,11 +9,25 @@ router.get('/', function(req, res)
   	res.render('index', { title: 'Quiz' });
 	});
 
+//////////////////////////////////////////////////////////////////////////
+// 
 // GET question page
-router.get('/quizes/question', quizController.question);
-
+// router.get('/quizes/question', quizController.question);
+// 
 // GET answer page
-router.get('/quizes/answer'  , quizController.answer);
+// router.get('/quizes/answer'  , quizController.answer);
+// 
+//////////////////////////////////////////////////////////////////////////
+
+
+// Definición de rutas /quizes
+router.get('/quizes', 			      	   quizController.index);
+// GET show question
+router.get('/quizes/:quizId(\\d+)',        quizController.show);
+// GET answer question
+router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
+
+
 
 // GET author credits page
 router.get('/author' , function(req, res)

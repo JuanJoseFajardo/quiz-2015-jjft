@@ -51,13 +51,17 @@ sequelize.sync().success( function()
 	// .count().success() devuelve en count el número de filas de la tabla
 	Quiz.count().success( function ( count )
 		{
-		// .create( ..objeto ..) crea un registro en la tabla que será la primera pregunta de la tabla.
+		// .create( ..objeto ..) crea registros en la tabla que serán las preguntas de la tabla.
 		// los campos de la tabla deben tener el mismo nombre que las propiedades
-		if (count == 0) Quiz.create( { pregunta : 'Capital de Italia',
-						               respuesta: 'Roma'}).success( function()
-						                    {
-						                    console.log('Base de datos inicializada');
-						                 	});
+		if (count == 0) 
+			{
+			Quiz.create( { pregunta : 'Capital de Italia',   respuesta: 'Roma'   });
+			Quiz.create( { pregunta : 'Capital de Portugal', respuesta: 'Lisboa' })
+			.success( function()
+                {
+                console.log('Base de datos inicializada');
+             	});					               
+			}
 		});
 	});
 
