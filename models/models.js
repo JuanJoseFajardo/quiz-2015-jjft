@@ -55,11 +55,11 @@ sequelize.sync().success( function()
 		// los campos de la tabla deben tener el mismo nombre que las propiedades
 		// if (count == 0) 
 		// 	{
-			// Quiz.create( { pregunta : 'Capital de Italia',   respuesta: 'Roma'   });
-			// Quiz.create( { pregunta : 'Capital de Portugal', respuesta: 'Lisboa' })
-			Quiz.create( { pregunta : 'Capital de Italia', respuesta: 'Roma' });
+			// Quiz.create( { pregunta : 'Capital de Italia'      , respuesta: 'Roma'    });
+			// Quiz.create( { pregunta : 'Capital de Portugal'    , respuesta: 'Lisboa'  });
+			Quiz.create( { pregunta : 'Capital de España'      , respuesta: 'Madrid'  });
 			Quiz.create( { pregunta : 'Capital de Gran Bretaña', respuesta: 'Londres' });
-			Quiz.create( { pregunta : 'Capital de Francia', respuesta: 'Paris' })
+			Quiz.create( { pregunta : 'Capital de Francia'     , respuesta: 'Paris'   })
 			.success( function()
                 {
                 console.log('Base de datos inicializada');
