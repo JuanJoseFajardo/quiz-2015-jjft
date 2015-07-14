@@ -44,9 +44,32 @@ exports.load = function( req, res, next, quizId )
 // GET /quizes
 // obtiene una lista de todas las preguntas con gestión de errores
 // 
+// GET /quizes/search?texto_a_buscar
+// obtiene una lista de todas las preguntas que contengan el texto a buscar con gestión de errores
+//
+// si se le pasa un string para buscar ejecuta una consulta de búsqueda del estring en las preguntas
+// con el siguiente criterio:
+// Para realizar la búsqueda de las preguntas en la base de datos, usar la función findAll de sequelize.
+// Debe usar el operador LIKE y el comodín % en la condición WHERE. Debe usar un formato como este:
+//
+//findAll({where: ["pregunta like ?", search]}]
+//
+// No olvidar delimitar el string contenido en search con el comodín % antes y después y
+// cambie también los espacios en blanco por %. De esta forma, si busca "uno dos" ("%uno%dos%"),
+// mostrará todas las preguntas que tengan "uno" seguido de "dos", independientemente de lo que haya
+// entre "uno" y "dos".
+// 
+
 exports.index = function ( req, res )
 	{
-	models.Quiz.findAll().then( function( quizes )
+	var textToSearch = req.query.search;
+	// condicion para mostrar todos los ids (lista de todas las preguntas)
+	var condicion    = { where: { id : { "gt" : 0 }}};
+	// si incluimos texto a buscar monta la condición de la consulta
+	if (textToSearch !== undefined)
+		condicion = { where: [ "pregunta like ?", '%' + textToSearch.replace(/ /,'%') + '%'],
+					  order: [['pregunta', 'ASC']] };
+	models.Quiz.findAll( condicion ).then( function( quizes )
 		{
 		res.render('quizes/index', { quizes: quizes });
 		}).catch( function( error )
@@ -105,7 +128,7 @@ exports.index = function ( req, res )
 // quiz.id       --> identificador de la clave maestra de la tabla Quiz
 // quiz.pregunta --> campo pregunta de la tabla Quiz
 // 
-exports.show = function(req, res)
+exports.show = function( req, res )
 	{
 	res.render('quizes/show', { quiz: req.quiz });
 	};
@@ -163,7 +186,7 @@ exports.show = function(req, res)
 // primitiva para comprobar la respuesta a la pregunta procesada en el autoload de la DB
 // quiz.id --> identificador de la clave maestra de la tabla Quiz
 // 
-exports.answer = function(req, res)
+exports.answer = function( req, res )
 	{
 	var params = { quiz: req.quiz, respuesta: 'Incorrecta'};
 	if (req.query.respuesta.toLowerCase() === req.quiz.respuesta.toLowerCase() ) params.respuesta = 'Correcta';
