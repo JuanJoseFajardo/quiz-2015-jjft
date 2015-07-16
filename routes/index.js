@@ -28,6 +28,11 @@ router.get('/quizes', 			      	   quizController.index);
 router.get('/quizes/:quizId(\\d+)',        quizController.show);
 // GET answer question
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
+// GET new question
+router.get('/quizes/new',				   quizController.new);
+// POST create question from form
+router.post('/quizes/create',			   quizController.create);
+
 
 
 // GET author credits page

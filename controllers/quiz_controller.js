@@ -67,10 +67,11 @@ exports.index = function ( req, res )
 	var condicion    = { where: { id : { "gt" : 0 }}};
 	// si incluimos texto a buscar monta la condición de la consulta
 	if (textToSearch !== undefined)
-		condicion = { where: [ "pregunta like ?", '%' + textToSearch.replace(/ /,'%') + '%'],
+		condicion = { where: [ "pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%'],
 					  order: [['pregunta', 'ASC']] };
 	models.Quiz.findAll( condicion ).then( function( quizes )
 		{
+		// quizes[0].pregunta = condicion.where;
 		res.render('quizes/index', { quizes: quizes });
 		}).catch( function( error )
 			{
@@ -195,4 +196,26 @@ exports.answer = function( req, res )
 // 
 ///////////////////////////////////////////////////////////////////////////
 
+// GET /quizes/new
+exports.new = function( req, res )
+	{
+	// crea objeto Quiz con los nombres de los campos de la tabla Quiz
+	// para inicializar el formulario
+	var quiz = models.Quiz.build( { pregunta: "Pregunta", respuesta: "Respuesta"} );
+	res.render('quizes/new', { quiz: quiz });
+	};
 
+// POST /quizes/create
+exports.create = function( req, res )
+	{
+	// crea un objeto Quiz que inicializa con el req.body
+	var quiz = models.Quiz.build( req.body.quiz );
+
+	// guarda el objeto quiz en DB con los campos pregunta y respuesta de quiz
+	// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form
+	quiz.save( { fields: ["pregunta", "respuesta"]} ).then (function()
+		{
+		// redirección HTTP URL relativo a la lista de preguntas
+		res.redirect('/quizes');
+		});
+	};

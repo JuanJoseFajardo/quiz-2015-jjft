@@ -25,7 +25,24 @@ app.use(partials());
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+////////////////////////////////////////////////////////////////////////
+//
+// app.use(bodyParser.urlencoded({ extended: false }));
+// reprogramar el middleware para construir correctamente un objeto quiz
+// con propiedades 'pregunta' y 'respuesta' extraídas de los nombres
+// de los parámetros quiz[pregunta] y quiz[respuesta] que se convierten
+// en propiedades del objeto quiz. 
+// name="quiz[pregunta]" y name="quiz[respuesta]" utilizan una notación pseudo JSON
+// que permite indicar que son propiedades de un objeto quiz.
+// El middleware bodyparser.urlencoded(..) los analiza correctamente
+// y genera el objeto req.body.quiz siempre que quitemos el parámetro de configuración
+// {extended: false} que express-generator incluyo cuando generó el proyecto
+// 
+app.use(bodyParser.urlencoded());
+// 
+////////////////////////////////////////////////////////////////////////
+// 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
