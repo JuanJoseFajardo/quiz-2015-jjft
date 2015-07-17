@@ -1,21 +1,21 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
+var express      = require('express');
+var path         = require('path');
+var favicon      = require('serve-favicon');
+var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var bodyParser   = require('body-parser');
 
 // importa el módulo express-partials
-var partials = require('express-partials');
+var partials     = require('express-partials');
 
-var routes = require('./routes/index');
+var routes       = require('./routes/index');
 // no se hace servir el enrutador users que viene por defecto
 // var users = require('./routes/users');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views'      , path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // invoca el módulo express-partials
@@ -66,7 +66,8 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err
+            error: err,
+            errors: []
         });
     });
 }
@@ -77,7 +78,8 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: {},
+        errors: []
     });
 });
 

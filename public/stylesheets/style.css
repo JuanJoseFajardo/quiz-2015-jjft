@@ -50,3 +50,9 @@ tr
 	{
 	text-align: left;
 	}
+
+#ErrorMsgs
+	{
+	color : #f61;
+	font-size: smaller;
+	}

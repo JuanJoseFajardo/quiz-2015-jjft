@@ -21,6 +21,16 @@
 				<span><a href="/author">Créditos</a></span>
 			</nav>
 		<section class="main" id="s1">
+			<!-- gestión de errores  -->
+			<% if ( errors.length )
+				{ %>
+				<span id='ErrorMsgs'>Corregir errores:<br/>
+					<% for (var i in errors) { %>
+						<span> <%= errors[i].message %> </span><br/>
+						<% } %>
+					</span>
+			 <% } %>
+
 			<!-- render de la vista con el body introducido aquí  -->
 			<%- body %>
 		</section>
@@ -28,6 +38,7 @@
 			<ul>
 				<li><a href="http://es.wikipedia.org/wiki/Quiz" target="_blank">¿Qué es un Quiz?</a></li>
 				<li><a href="https://github.com/JuanJoseFajardo/quiz-2015-jjft" target="_blank">My github quiz project</a></li>
+				<li><a href="https://github.com/jquemada/quiz-2015" target="_blank">Juan Quemada quiz project</a></li>
 			</ul>
 		</footer>
     </div>
