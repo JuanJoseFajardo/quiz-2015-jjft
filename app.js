@@ -1,14 +1,14 @@
-var express      = require('express');
-var path         = require('path');
-var favicon      = require('serve-favicon');
-var logger       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-
+var express        = require('express');
+var path           = require('path');
+var favicon        = require('serve-favicon');
+var logger         = require('morgan');
+var cookieParser   = require('cookie-parser');
+var bodyParser     = require('body-parser');
 // importa el módulo express-partials
-var partials     = require('express-partials');
-
-var routes       = require('./routes/index');
+var partials       = require('express-partials');
+// importar paquete para cambiar la petición POST por PUT
+var methodOverride = require('method-override');
+var routes         = require('./routes/index');
 // no se hace servir el enrutador users que viene por defecto
 // var users = require('./routes/users');
 
@@ -44,6 +44,9 @@ app.use(bodyParser.urlencoded());
 ////////////////////////////////////////////////////////////////////////
 // 
 app.use(cookieParser());
+// instala middlware para cambiar la petición POST por PUT
+// '_method' indica el nombre del parámetro utilizado para encapsular el método (edit.ejs)
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

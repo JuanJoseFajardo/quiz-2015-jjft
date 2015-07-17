@@ -28,10 +28,15 @@ router.get('/quizes', 			      	   quizController.index);
 router.get('/quizes/:quizId(\\d+)',        quizController.show);
 // GET answer question
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
+// GET edit questions
+router.get('/quizes/:quizId(\\d+)/edit',   quizController.edit);
+// PUT edit questions
+router.put('/quizes/:quizId(\\d+)',        quizController.update);
 // GET new question
 router.get('/quizes/new',				   quizController.new);
 // POST create question from form
 router.post('/quizes/create',			   quizController.create);
+
 
 
 

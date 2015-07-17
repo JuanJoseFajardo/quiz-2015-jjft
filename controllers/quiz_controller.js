@@ -228,8 +228,6 @@ exports.create = function( req, res )
 	// crea un objeto Quiz que inicializa con el req.body
 	var quiz = models.Quiz.build( req.body.quiz );
 
-	// var err = quiz.validate();
-	// console.log(err);
 	quiz.validate().then( function( err )
 		{
 		if ( err )
@@ -249,3 +247,45 @@ exports.create = function( req, res )
 			}
 		});
 	};
+
+
+// GET /quizes/:id/edit
+exports.edit = function( req, res )
+	{
+	//autoload de instancia de quiz
+	var quiz = req.quiz;
+
+	res.render('quizes/edit', { quiz: quiz, errors: [] });
+	};
+
+// PUT /quizes/:id
+exports.update = function( req, res )
+	{
+	req.quiz.pregunta  = req.body.quiz.pregunta;
+	req.quiz.respuesta = req.body.quiz.respuesta;
+
+	req.quiz.validate().then( function( err )
+		{
+		if ( err )
+			{
+			res.render('quizes/edit', { quiz: req.quiz, errors: err.errors });
+			}	
+		else
+			{
+			// guarda el objeto quiz actualizado en DB con los campos pregunta y respuesta de quiz
+			// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form				
+			req.quiz.save( { fields: ["pregunta", "respuesta" ]}).then( function()
+				{
+				// redirección HTTP URL relativo a la lista de preguntas					
+				res.redirect('/quizes');
+				});
+			}
+		});
+	};
+
+
+
+
+
+
+
