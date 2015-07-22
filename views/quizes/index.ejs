@@ -11,15 +11,21 @@
 	    		 	<td><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].indice_tematico %> </a></td>
 	    		 	<td>&nbsp&nbsp&nbsp</td>
 	    		 	<td><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %> </a></td>
-	    		 	<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
-	    		 	<td>
-	    		 		<form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
-	    		 			<button type="submit" onClick="return confirm('Está seguro de eliminar la pregunta: <%= quizes[i].pregunta %>');">eliminar</button>
-	    		 		</form>
-	    		 	</td>
+	    		 	<% if ( session.user)
+	    		 		{ %>
+		    		 	<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
+		    		 	<td>
+		    		 		<form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
+		    		 			<button type="submit" onClick="return confirm('Está seguro de eliminar la pregunta: <%= quizes[i].pregunta %>');">eliminar</button>
+		    		 		</form>
+		    		 	</td>
+		    		 <% } %>
 	    		 </tr> <%
 	    		}
 	    %>
     </table>
     <p/>
-    <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+    <% if ( session.user )
+    	{ %>
+    	<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+     <% } %>

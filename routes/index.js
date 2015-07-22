@@ -29,15 +29,15 @@ router.get('/quizes/:quizId(\\d+)',        quizController.show);
 // GET answer question
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 // GET new question
-router.get('/quizes/new',				   quizController.new);
+router.get('/quizes/new',				   sessionController.loginRequired, quizController.new);
 // POST create question from form
-router.post('/quizes/create',			   quizController.create);
+router.post('/quizes/create',			   sessionController.loginRequired, quizController.create);
 // GET edit questions
-router.get('/quizes/:quizId(\\d+)/edit',   quizController.edit);
+router.get('/quizes/:quizId(\\d+)/edit',   sessionController.loginRequired, quizController.edit);
 // PUT edit questions
-router.put('/quizes/:quizId(\\d+)',        quizController.update);
+router.put('/quizes/:quizId(\\d+)',        sessionController.loginRequired, quizController.update);
 // DELETE questions
-router.delete('/quizes/:quizId(\\d+)',     quizController.destroy);
+router.delete('/quizes/:quizId(\\d+)',     sessionController.loginRequired, quizController.destroy);
 
 // GET comment
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
