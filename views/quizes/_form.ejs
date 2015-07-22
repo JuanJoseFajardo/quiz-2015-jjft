@@ -1,4 +1,25 @@
- <label for="preg" class="ren">Pregunta:</label>
+<fieldset>
+	<legend>Tema</legend>
+	<select name="quiz[indice_tematico]">
+		<option value="otro" 
+			<% if ( quiz.indice_tematico === "otro" ) { %> selected <% } %>        > Otro
+		</option>
+		<option value="humanidades"
+			<% if ( quiz.indice_tematico === "humanidades" ) { %> selected <% } %> > Humanidades
+		</option>
+  		<option value="ocio"
+  			<% if ( quiz.indice_tematico === "ocio" ) { %> selected <% } %>        > Ocio
+  		</option>
+		<option value="ciencia"
+			<% if ( quiz.indice_tematico === "ciencia" ) { %> selected <% } %>     > Ciencia
+		</option>
+		<option value="tecnologia"
+			<% if ( quiz.indice_tematico === "tecnologia" ) { %> selected <% } %>      > Tecnología 
+		</option>
+	</select>
+</fieldset>
+
+<label for="preg" class="ren">Pregunta:</label>
  	<input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/> <p>
 
 <label for="resp" class="ren">Respuesta:</label>

@@ -198,13 +198,27 @@ exports.answer = function( req, res )
 ///////////////////////////////////////////////////////////////////////////
 
 // GET /quizes/new
+// exports.new = function( req, res )
+// 	{
+// 	// crea objeto Quiz con los nombres de los campos de la tabla Quiz
+// 	// para inicializar el formulario
+// 	var quiz = models.Quiz.build( { pregunta: "Pregunta", respuesta: "Respuesta"} );
+// 	res.render('quizes/new', { quiz: quiz, errors: [] });
+// 	};
+
+///////////////////////////////////////////////////////////////////////////
+
+// GET /quizes/new
+// con indice_temático
+
 exports.new = function( req, res )
 	{
 	// crea objeto Quiz con los nombres de los campos de la tabla Quiz
 	// para inicializar el formulario
-	var quiz = models.Quiz.build( { pregunta: "Pregunta", respuesta: "Respuesta"} );
+	var quiz = models.Quiz.build( { pregunta: "Pregunta", respuesta: "Respuesta", indice_tematico: "Indice"} );
 	res.render('quizes/new', { quiz: quiz, errors: [] });
 	};
+
 
 // POST /quizes/create
 // sin validación de la entrada en los campos de la tabla
@@ -224,6 +238,35 @@ exports.new = function( req, res )
 
 // POST /quizes/create
 // con validación de la entrada en los campos de la tabla
+// exports.create = function( req, res )
+// 	{
+// 	// crea un objeto Quiz que inicializa con el req.body
+// 	var quiz = models.Quiz.build( req.body.quiz );
+
+// 	quiz.validate().then( function( err )
+// 		{
+// 		if ( err )
+// 			{
+// 			// para un error de validación
+// 			res.render('quizes/new', { quiz: quiz, errors: err.errors });
+// 			}
+// 		else
+// 			{
+// 			// guarda el objeto quiz en DB con los campos pregunta y respuesta de quiz
+// 			// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form
+// 			quiz.save( { fields: ["pregunta", "respuesta"]} ).then ( function()
+// 				{
+// 				// redirección HTTP URL relativo a la lista de preguntas
+// 				res.redirect('/quizes');
+// 				});
+// 			}
+// 		});
+// 	};
+/////////////////////////////////////////////////////////////////////////////////////
+
+// POST /quizes/create
+// con validación de la entrada en los campos de la tabla
+// con índice temático
 exports.create = function( req, res )
 	{
 	// crea un objeto Quiz que inicializa con el req.body
@@ -240,7 +283,7 @@ exports.create = function( req, res )
 			{
 			// guarda el objeto quiz en DB con los campos pregunta y respuesta de quiz
 			// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form
-			quiz.save( { fields: ["pregunta", "respuesta"]} ).then ( function()
+			quiz.save( { fields: ["pregunta", "respuesta", "indice_tematico"]} ).then ( function()
 				{
 				// redirección HTTP URL relativo a la lista de preguntas
 				res.redirect('/quizes');
@@ -248,7 +291,7 @@ exports.create = function( req, res )
 			}
 		});
 	};
-
+/////////////////////////////////////////////////////////////////////////////////////
 
 // GET /quizes/:id/edit
 exports.edit = function( req, res )
@@ -260,6 +303,34 @@ exports.edit = function( req, res )
 	};
 
 // PUT /quizes/:id
+// exports.update = function( req, res )
+// 	{
+// 	req.quiz.pregunta  = req.body.quiz.pregunta;
+// 	req.quiz.respuesta = req.body.quiz.respuesta;
+
+// 	req.quiz.validate().then( function( err )
+// 		{
+// 		if ( err )
+// 			{
+// 			res.render('quizes/edit', { quiz: req.quiz, errors: err.errors });
+// 			}	
+// 		else
+// 			{
+// 			// guarda el objeto quiz actualizado en DB con los campos pregunta y respuesta de quiz
+// 			// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form				
+// 			req.quiz.save( { fields: ["pregunta", "respuesta" ]}).then( function()
+// 				{
+// 				// redirección HTTP URL relativo a la lista de preguntas					
+// 				res.redirect('/quizes');
+// 				});
+// 			}
+// 		});
+// 	};
+//////////////////////////////////////////////////////////////////////////////////////////////
+// 
+// PUT /quizes/:id
+// con índice temático
+
 exports.update = function( req, res )
 	{
 	req.quiz.pregunta  = req.body.quiz.pregunta;
@@ -275,7 +346,7 @@ exports.update = function( req, res )
 			{
 			// guarda el objeto quiz actualizado en DB con los campos pregunta y respuesta de quiz
 			// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form				
-			req.quiz.save( { fields: ["pregunta", "respuesta" ]}).then( function()
+			req.quiz.save( { fields: ["pregunta", "respuesta", "indice_tematico" ]}).then( function()
 				{
 				// redirección HTTP URL relativo a la lista de preguntas					
 				res.redirect('/quizes');
