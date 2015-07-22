@@ -11,6 +11,7 @@ var methodOverride = require('method-override');
 var routes         = require('./routes/index');
 // no se hace servir el enrutador users que viene por defecto
 // var users = require('./routes/users');
+var session        = require('express-session');
 
 var app = express();
 
@@ -42,12 +43,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 // 
 ////////////////////////////////////////////////////////////////////////
-// 
-app.use(cookieParser());
+//  
+// app.use(cookieParser());
+// añade la semilla 'Quiz-jjft-2015' para cifrar la cookie
+app.use(cookieParser('Quiz-jjft-2015'));
+
+// instala middleware session
+app.use(session());
+
 // instala middlware para cambiar la petición POST por PUT
 // '_method' indica el nombre del parámetro utilizado para encapsular el método (edit.ejs)
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Helpers dinámicos:
+app.use(function ( req, res, next )
+	{
+	// guardar path en session.dir para después de login
+	if ( ! req.path.match(/\/login|\/logout/) )
+		req.session.redir = req.path;
+	// Hacer visible req.session en las vistas
+	res.locals.session = req.session;
+	next();
+	});
 
 app.use('/', routes);
 // no se hace servir el enrutador users que viene por defecto

@@ -10,6 +10,7 @@ var router         = express.Router();
 
 var quizController    = require('../controllers/quiz_controller.js');
 var commentController = require('../controllers/comment_controller.js');
+var sessionController = require('../controllers/session_controller.js');
 
 /* GET home page. */
 router.get('/', function(req, res)
@@ -48,6 +49,14 @@ router.get('/author' , function(req, res)
 	{
   	res.render('author', { title: 'Quiz', errors: [] });
 	});
+
+// Definición de rutas de sesión
+// --->formulario login
+router.get('/login',  sessionController.new);
+// --->crear sesión
+router.post('/login', sessionController.create);
+// --->destruir sesión
+router.get('/logout', sessionController.destroy);
 
 
 module.exports = router;
