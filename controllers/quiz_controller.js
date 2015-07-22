@@ -60,7 +60,7 @@ exports.index = function ( req, res )
 	{
 	var textToSearch = req.query.search;
 	// condicion para mostrar todos los ids (lista de todas las preguntas)
-	var condicion    = { where: { id : { "gt" : 0 }} };
+	var condicion    = { where: { id : { "gt" : Number(0) }} };
 	// si incluimos texto a buscar monta la condición de la consulta
 	if (textToSearch !== undefined)
 		condicion = { where: [ "pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%'] };

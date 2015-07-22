@@ -12,7 +12,30 @@
     <p><strong>Comentarios:</strong></p>
     <ul class="comment">
     <% for(index in quiz.Comments)
-    	{ %>
-    	<li> <%= quiz.Comments[index].texto %> </li>
+    	{
+    	if (quiz.Comments[index].publicado)
+    		{ %>
+    		<li> <%= quiz.Comments[index].texto %>
+	    	 	<% if ( session.user )
+	    			{
+	    			if ( session.user.username === "admin" )
+		    			{ %>
+	    				<a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/unpublish"><button>Despublicar</button></a>
+		    		 <% } %>
+		    	<% } %>
+	    	</li>
+    	 <% }
+    	 else
+    	 	{
+    	 	if ( session.user )
+    			{
+    			if ( session.user.username === "admin" )
+	    			{ %>
+	    			<li> <%= quiz.Comments[index].texto %>
+	    				<a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish"><button>Publicar</button></a>
+	    			</li>
+	    		 <% } %>
+	    	<% } %>
+    	<%  } %>	 	
     <%  } %>
     </ul>
