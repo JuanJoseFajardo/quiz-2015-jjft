@@ -33,10 +33,26 @@ var sequelize = new Sequelize(DB_name, user, pwd, {  dialect : protocol
 var quiz_path = path.join(__dirname, 'quiz');
 var Quiz      = sequelize.import( quiz_path );
 
+// Importar definición de la tabla Commentz en comment.js ('comment' es 'commnet.js')
+
+var comment_path = path.join(__dirname, 'comment');
+var Comment      = sequelize.import( comment_path );
+
+// Relación 1 a N entre la tabla Quiz y Comment. ( N comentarios pertenecen a 1 Quiz)
+Comment.belongsTo( Quiz );
+// Relación 1 a N entre la tabla Quiz y Comment ( un Quiz puede tener N comentarios )
+Quiz.hasMany( Comment );
+
+
 // exportar definición de tabla Quiz
 // para que se pueda importar desde otros lugares de la aplicación y
 // dar acceso a los elementos del modelo
 exports.Quiz = Quiz;
+
+// exportar definición de tabla Comments
+// para que se pueda importar desde otros lugares de la aplicación y
+// dar acceso a los elementos del modelo
+exports.Comment = Comment;
 
 // creación e inicialización de la DDBB sincronizando el modelo
 

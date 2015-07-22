@@ -46,6 +46,11 @@ ul
 	list-style-type: none;
 	}
 
+ul.comment
+	{
+	list-style-type: disc;
+	}
+
 tr
 	{
 	text-align: left;

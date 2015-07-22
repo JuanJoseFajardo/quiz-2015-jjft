@@ -1,7 +1,15 @@
+/////////////////////////////////////////////////////////////////////////////////////
+// 
+// RUTAS
+// 
+/////////////////////////////////////////////////////////////////////////////////////
+
+
 var express        = require('express');
 var router         = express.Router();
 
-var quizController = require('../controllers/quiz_controller.js');
+var quizController    = require('../controllers/quiz_controller.js');
+var commentController = require('../controllers/comment_controller.js');
 
 /* GET home page. */
 router.get('/', function(req, res)
@@ -9,15 +17,6 @@ router.get('/', function(req, res)
   	res.render('index', { title: 'Quiz', errors: [] });
 	});
 
-//////////////////////////////////////////////////////////////////////////
-// 
-// GET question page
-// router.get('/quizes/question', quizController.question);
-// 
-// GET answer page
-// router.get('/quizes/answer'  , quizController.answer);
-// 
-//////////////////////////////////////////////////////////////////////////
 
 // Autoload de comandos con :quizId
 router.param('quizId',					   quizController.load);
@@ -39,7 +38,10 @@ router.put('/quizes/:quizId(\\d+)',        quizController.update);
 // DELETE questions
 router.delete('/quizes/:quizId(\\d+)',     quizController.destroy);
 
-
+// GET comment
+router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
+// POST comment
+router.post('/quizes/:quizId(\\d+)/comments',    commentController.create);
 
 // GET author credits page
 router.get('/author' , function(req, res)

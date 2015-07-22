@@ -1,22 +1,22 @@
 <label for="tema" class="ren">Tema:</label>
 	<select name="quiz[indice_tematico]">
 		<option value="Otro" 
-			<% if ( quiz.indice_tematico === "Otro" ) { %> selected <% } %>        > Otro
+			<% if ( quiz.indice_tematico === "Otro" )        { %> selected <% } %> > Otro
+		</option>
+		<option value="Ciencia"
+			<% if ( quiz.indice_tematico === "Ciencia" )     { %> selected <% } %> > Ciencia
+		</option>
+		<option value="Geografia"
+			<% if ( quiz.indice_tematico === "Geografia" )   { %> selected <% } %> > Geografía 
 		</option>
 		<option value="Humanidades"
 			<% if ( quiz.indice_tematico === "Humanidades" ) { %> selected <% } %> > Humanidades
 		</option>
   		<option value="Ocio"
-  			<% if ( quiz.indice_tematico === "Ocio" ) { %> selected <% } %>        > Ocio
+  			<% if ( quiz.indice_tematico === "Ocio" )        { %> selected <% } %> > Ocio
   		</option>
-		<option value="Ciencia"
-			<% if ( quiz.indice_tematico === "Ciencia" ) { %> selected <% } %>     > Ciencia
-		</option>
 		<option value="Tecnologia"
-			<% if ( quiz.indice_tematico === "Tecnologia" ) { %> selected <% } %>  > Tecnología 
-		</option>
-		<option value="Geografia"
-			<% if ( quiz.indice_tematico === "Geografia" ) { %> selected <% } %>   > Geografía 
+			<% if ( quiz.indice_tematico === "Tecnologia" )  { %> selected <% } %> > Tecnología 
 		</option>
 	</select> <p>
 

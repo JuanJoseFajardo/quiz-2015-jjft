@@ -1,15 +1,22 @@
 // Questions and answers controller
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // importa el modelo para poder acceder a la DB. Éste a su vez importa quiz.js
 var models = require('../models/models.js');
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+// 
 // Autoload - factoriza el código si ruta incluye : quizId
 // busca en la base de datos el QuizId i si no existe lanza excepción de error
+// 
+/////////////////////////////////////////////////////////////////////////////////////
+
 exports.load = function( req, res, next, quizId )
 	{
-	models.Quiz.find( quizId ). then( function ( quiz )
+	var searchId = { where  : { id: Number(quizId) },
+					 include: [ { model: models.Comment }]
+				   };
+	models.Quiz.find( searchId ). then( function ( quiz )
 		{
 		if ( quiz )
 			{
@@ -26,19 +33,7 @@ exports.load = function( req, res, next, quizId )
 			});
 	};
 
-///////////////////////////////////////////////////////////////////////////
-// 
-// GET /quizes
-// obtiene una lista de todas las preguntas sin gestión de errores
-// 
-// exports.index = function ( req, res )
-// 	{
-// 	models.Quiz.findAll().then( function( quizes )
-// 		{
-// 		res.render('quizes/index.ejs', { quizes: quizes });
-// 		});
-// 	};
-// 
+
 ///////////////////////////////////////////////////////////////////////////
 // 
 // GET /quizes
@@ -59,6 +54,7 @@ exports.load = function( req, res, next, quizId )
 // mostrará todas las preguntas que tengan "uno" seguido de "dos", independientemente de lo que haya
 // entre "uno" y "dos".
 // 
+/////////////////////////////////////////////////////////////////////////////////////
 
 exports.index = function ( req, res )
 	{
@@ -79,50 +75,8 @@ exports.index = function ( req, res )
 			next( error );
 			});
 	};
-// 
-///////////////////////////////////////////////////////////////////////////
 
 
-///////////////////////////////////////////////////////////////////////////
-// 
-// GET /quizes/question
-// sin acceso a DB
-// 
-// exports.question = function(req, res)
-// 	{
-// 	res.render('quizes/question', { title: 'Quiz', pregunta: 'Capital de Italia'});
-// 	};
-// 
-///////////////////////////////////////////////////////////////////////////
-// 
-// GET /quizes/question
-// modifica el controlador para que busque en la DB
-// 
-// exports.question = function(req, res)
-// 	{
-// 	// Quiz.findAll() o Quiz.find() busca datos en la tabla Quiz y se procesan en el callback del método success
-// 	models.Quiz.findAll().success( function ( quiz )
-// 		{
-// 		res.render('quizes/question', { title: 'Quiz', pregunta: quiz[0].pregunta});
-// 		});
-// 	};
-// 
-///////////////////////////////////////////////////////////////////////////
-// 
-// GET /quizes/:id
-// primitiva para mostrar la pregunta buscando en la DB
-// quiz.id       --> identificador de la clave maestra de la tabla Quiz
-// quiz.pregunta --> campo pregunta de la tabla Quiz
-// 
-// exports.show = function(req, res)
-// 	{
-// 	// Quiz.find() busca la pregunta en la tabla Quiz y se procesan en el callback del método then
-// 	models.Quiz.find( req.params.quizId ).then( function ( quiz )
-// 		{
-// 		res.render('quizes/show', { quiz: req.quiz });
-// 		});
-// 	};
-// 
 ///////////////////////////////////////////////////////////////////////////
 // 
 // GET /quizes/:id
@@ -130,86 +84,36 @@ exports.index = function ( req, res )
 // quiz.id       --> identificador de la clave maestra de la tabla Quiz
 // quiz.pregunta --> campo pregunta de la tabla Quiz
 // 
+/////////////////////////////////////////////////////////////////////////////////////
+
 exports.show = function( req, res )
 	{
 	res.render('quizes/show', { quiz: req.quiz, errors: [] });
 	};
 
-// 
-///////////////////////////////////////////////////////////////////////////
 
-
-///////////////////////////////////////////////////////////////////////////
-// 
-// GET /quizes/answer
-// sin acceso a DB
-// 
-// exports.answer = function(req, res)
-// 	{
-// 	var params = { title: 'Quiz', respuesta: 'Incorrecta'};
-// 	if (req.query.respuesta.toLowerCase() === 'roma') params.respuesta = 'Correcta';
-// 	res.render('quizes/answer', params );
-// 	};
-// 
-///////////////////////////////////////////////////////////////////////////
-// 
-// GET /quizes/answer
-// modifica el controlador para que busque en la DB
-// 
-// exports.answer = function(req, res)
-// 	{
-// 	models.Quiz.findAll().success( function(quiz)
-// 		{
-// 		var params = { title: 'Quiz', respuesta: 'Incorrecta'};
-// 		if (req.query.respuesta.toLowerCase() === quiz[0].respuesta.toLowerCase() ) params.respuesta = 'Correcta';
-// 		res.render('quizes/answer', params );
-// 		});
-// 	};
-// 
-///////////////////////////////////////////////////////////////////////////
-// 
-// GET /quizes/:id/answer
-// primitiva para comprobar la respuesta a la pregunta buscando en la DB
-// quiz.id --> identificador de la clave maestra de la tabla Quiz
-// 
-// exports.answer = function(req, res)
-// 	{
-// 	models.Quiz.find( req.params.quizId ).then( function( quiz )
-// 		{
-// 		var params = { quiz: quiz, respuesta: 'Incorrecta'};
-// 		if (req.query.respuesta.toLowerCase() === quiz.respuesta.toLowerCase() ) params.respuesta = 'Correcta';
-// 		res.render('quizes/answer', params );
-// 		});
-// 	};
-// 
 ///////////////////////////////////////////////////////////////////////////
 // 
 // GET /quizes/:id/answer
 // primitiva para comprobar la respuesta a la pregunta procesada en el autoload de la DB
 // quiz.id --> identificador de la clave maestra de la tabla Quiz
 // 
+/////////////////////////////////////////////////////////////////////////////////////
+
 exports.answer = function( req, res )
 	{
 	var params = { quiz: req.quiz, respuesta: 'Incorrecta', errors: [] };
 	if (req.query.respuesta.toLowerCase() === req.quiz.respuesta.toLowerCase() ) params.respuesta = 'Correcta';
 	res.render('quizes/answer', params );
 	};
+
+
+///////////////////////////////////////////////////////////////////////////
 // 
-///////////////////////////////////////////////////////////////////////////
-
-// GET /quizes/new
-// exports.new = function( req, res )
-// 	{
-// 	// crea objeto Quiz con los nombres de los campos de la tabla Quiz
-// 	// para inicializar el formulario
-// 	var quiz = models.Quiz.build( { pregunta: "Pregunta", respuesta: "Respuesta"} );
-// 	res.render('quizes/new', { quiz: quiz, errors: [] });
-// 	};
-
-///////////////////////////////////////////////////////////////////////////
-
 // GET /quizes/new
 // con indice_temático
+// 
+/////////////////////////////////////////////////////////////////////////////////////
 
 exports.new = function( req, res )
 	{
@@ -220,53 +124,14 @@ exports.new = function( req, res )
 	};
 
 
-// POST /quizes/create
-// sin validación de la entrada en los campos de la tabla
-// exports.create = function( req, res )
-// 	{
-// 	// crea un objeto Quiz que inicializa con el req.body
-// 	var quiz = models.Quiz.build( req.body.quiz );
-
-// 	// guarda el objeto quiz en DB con los campos pregunta y respuesta de quiz
-// 	// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form
-// 	quiz.save( { fields: ["pregunta", "respuesta"]} ).then (function()
-// 		{
-// 		// redirección HTTP URL relativo a la lista de preguntas
-// 		res.redirect('/quizes');
-// 		});
-// 	};
-
-// POST /quizes/create
-// con validación de la entrada en los campos de la tabla
-// exports.create = function( req, res )
-// 	{
-// 	// crea un objeto Quiz que inicializa con el req.body
-// 	var quiz = models.Quiz.build( req.body.quiz );
-
-// 	quiz.validate().then( function( err )
-// 		{
-// 		if ( err )
-// 			{
-// 			// para un error de validación
-// 			res.render('quizes/new', { quiz: quiz, errors: err.errors });
-// 			}
-// 		else
-// 			{
-// 			// guarda el objeto quiz en DB con los campos pregunta y respuesta de quiz
-// 			// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form
-// 			quiz.save( { fields: ["pregunta", "respuesta"]} ).then ( function()
-// 				{
-// 				// redirección HTTP URL relativo a la lista de preguntas
-// 				res.redirect('/quizes');
-// 				});
-// 			}
-// 		});
-// 	};
-/////////////////////////////////////////////////////////////////////////////////////
-
+///////////////////////////////////////////////////////////////////////////
+// 
 // POST /quizes/create
 // con validación de la entrada en los campos de la tabla
 // con índice temático
+// 
+/////////////////////////////////////////////////////////////////////////////////////
+
 exports.create = function( req, res )
 	{
 	// crea un objeto Quiz que inicializa con el req.body
@@ -291,9 +156,14 @@ exports.create = function( req, res )
 			}
 		});
 	};
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+// 
+// GET /quizes/:id/edit
+// 
 /////////////////////////////////////////////////////////////////////////////////////
 
-// GET /quizes/:id/edit
 exports.edit = function( req, res )
 	{
 	//autoload de instancia de quiz
@@ -302,34 +172,13 @@ exports.edit = function( req, res )
 	res.render('quizes/edit', { quiz: quiz, errors: [] });
 	};
 
-// PUT /quizes/:id
-// exports.update = function( req, res )
-// 	{
-// 	req.quiz.pregunta  = req.body.quiz.pregunta;
-// 	req.quiz.respuesta = req.body.quiz.respuesta;
 
-// 	req.quiz.validate().then( function( err )
-// 		{
-// 		if ( err )
-// 			{
-// 			res.render('quizes/edit', { quiz: req.quiz, errors: err.errors });
-// 			}	
-// 		else
-// 			{
-// 			// guarda el objeto quiz actualizado en DB con los campos pregunta y respuesta de quiz
-// 			// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form				
-// 			req.quiz.save( { fields: ["pregunta", "respuesta" ]}).then( function()
-// 				{
-// 				// redirección HTTP URL relativo a la lista de preguntas					
-// 				res.redirect('/quizes');
-// 				});
-// 			}
-// 		});
-// 	};
 //////////////////////////////////////////////////////////////////////////////////////////////
 // 
 // PUT /quizes/:id
 // con índice temático
+// 
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 exports.update = function( req, res )
 	{
@@ -356,7 +205,13 @@ exports.update = function( req, res )
 		});
 	};
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// 
 // DELETE /quizes/:id
+// 
+//////////////////////////////////////////////////////////////////////////////////////////////
+
 exports.destroy = function( req, res )
 	{
 	req.quiz.destroy().then( function()
@@ -367,8 +222,4 @@ exports.destroy = function( req, res )
 			next( error );
 			});
 	};
-
-
-
-
 
