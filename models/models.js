@@ -55,11 +55,12 @@ sequelize.sync().success( function()
 		// los campos de la tabla deben tener el mismo nombre que las propiedades
 		if (count == 0) 
 			{
-			Quiz.create( { pregunta : 'Capital de Italia'      , respuesta: 'Roma'    });
-			Quiz.create( { pregunta : 'Capital de Portugal'    , respuesta: 'Lisboa'  });
-			Quiz.create( { pregunta : 'Capital de España'      , respuesta: 'Madrid'  });
-			Quiz.create( { pregunta : 'Capital de Gran Bretaña', respuesta: 'Londres' });
-			Quiz.create( { pregunta : 'Capital de Francia'     , respuesta: 'Paris'   })
+			Quiz.create( { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  });
+			Quiz.create( { pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  });
+			Quiz.create( { pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  });
+			Quiz.create( { pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' });
+			Quiz.create( { pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    });
+			Quiz.create( { pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' })
 			.success( function()
                 {
                 console.log('Base de datos inicializada');

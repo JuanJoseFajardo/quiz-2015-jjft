@@ -64,12 +64,12 @@ exports.index = function ( req, res )
 	{
 	var textToSearch = req.query.search;
 	// condicion para mostrar todos los ids (lista de todas las preguntas)
-	var condicion    = { where: { id : { "gt" : 0 }},
-						 order: [['pregunta', 'ASC']] };
+	var condicion    = { where: { id : { "gt" : 0 }} };
 	// si incluimos texto a buscar monta la condición de la consulta
 	if (textToSearch !== undefined)
-		condicion = { where: [ "pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%'],
-					  order: [['pregunta', 'ASC']] };
+		condicion = { where: [ "pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%'] };
+
+	condicion.order = [ ['indice_tematico', 'ASC'], ['pregunta', 'ASC'] ];
 	models.Quiz.findAll( condicion ).then( function( quizes )
 		{
 		// quizes[0].pregunta = condicion.where;
@@ -333,8 +333,9 @@ exports.edit = function( req, res )
 
 exports.update = function( req, res )
 	{
-	req.quiz.pregunta  = req.body.quiz.pregunta;
-	req.quiz.respuesta = req.body.quiz.respuesta;
+	req.quiz.pregunta        = req.body.quiz.pregunta;
+	req.quiz.respuesta       = req.body.quiz.respuesta;
+	req.quiz.indice_tematico = req.body.quiz.indice_tematico;
 
 	req.quiz.validate().then( function( err )
 		{

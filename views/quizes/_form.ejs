@@ -1,23 +1,24 @@
-<fieldset>
-	<legend>Tema</legend>
+<label for="tema" class="ren">Tema:</label>
 	<select name="quiz[indice_tematico]">
-		<option value="otro" 
-			<% if ( quiz.indice_tematico === "otro" ) { %> selected <% } %>        > Otro
+		<option value="Otro" 
+			<% if ( quiz.indice_tematico === "Otro" ) { %> selected <% } %>        > Otro
 		</option>
-		<option value="humanidades"
-			<% if ( quiz.indice_tematico === "humanidades" ) { %> selected <% } %> > Humanidades
+		<option value="Humanidades"
+			<% if ( quiz.indice_tematico === "Humanidades" ) { %> selected <% } %> > Humanidades
 		</option>
-  		<option value="ocio"
-  			<% if ( quiz.indice_tematico === "ocio" ) { %> selected <% } %>        > Ocio
+  		<option value="Ocio"
+  			<% if ( quiz.indice_tematico === "Ocio" ) { %> selected <% } %>        > Ocio
   		</option>
-		<option value="ciencia"
-			<% if ( quiz.indice_tematico === "ciencia" ) { %> selected <% } %>     > Ciencia
+		<option value="Ciencia"
+			<% if ( quiz.indice_tematico === "Ciencia" ) { %> selected <% } %>     > Ciencia
 		</option>
-		<option value="tecnologia"
-			<% if ( quiz.indice_tematico === "tecnologia" ) { %> selected <% } %>      > Tecnología 
+		<option value="Tecnologia"
+			<% if ( quiz.indice_tematico === "Tecnologia" ) { %> selected <% } %>  > Tecnología 
 		</option>
-	</select>
-</fieldset>
+		<option value="Geografia"
+			<% if ( quiz.indice_tematico === "Geografia" ) { %> selected <% } %>   > Geografía 
+		</option>
+	</select> <p>
 
 <label for="preg" class="ren">Pregunta:</label>
  	<input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/> <p>
