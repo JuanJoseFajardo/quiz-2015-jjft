@@ -5,8 +5,8 @@
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-var express        = require('express');
-var router         = express.Router();
+var express           = require('express');
+var router            = express.Router();
 
 var quizController    = require('../controllers/quiz_controller.js');
 var commentController = require('../controllers/comment_controller.js');
@@ -59,14 +59,21 @@ router.post('/quizes/:quizId(\\d+)/comments',    commentController.create);
 // GET publish comment
 // only for authenticated users using the authenticacion middleware 'sessionController.loginRequired'
 // that pass through the next controller if it's true (login ok)
-router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
-												 sessionController.loginRequired, commentController.publish);
+// router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
+// 												 sessionController.loginRequired, commentController.publish);
+
+
+router.put('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
+												 sessionController.loginRequired, commentController.updatePublish);
 
 // GET unpublish comment
 // only for authenticated users using the authenticacion middleware 'sessionController.loginRequired'
 // that pass through the next controller if it's true (login ok)
-router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/unpublish',
-												 sessionController.loginRequired, commentController.unpublish);
+// router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/unpublish',
+// 												 sessionController.loginRequired, commentController.unpublish);
+
+router.put('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/unpublish',
+												 sessionController.loginRequired, commentController.updateUnpublish);
 
 // Definición de rutas author
 // 

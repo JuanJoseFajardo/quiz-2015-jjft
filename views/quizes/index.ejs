@@ -1,17 +1,57 @@
-     <form method="get" action="/quizes">
-    	Texto a buscar:
-    	<input type="text" name="search" placeholder=""/>
-    	<input type="submit" value="Buscar"/>
-    </form>
     <table>
+    	<form method="get" action="/quizes">
+	    	<tr>
+		    	<td>Buscar preguntas:</td>
+		    	<td><input type="text" name="search" placeholder="escriba su búsqueda"/></td>
+	    	</tr>
+		   	<tr>
+			    <td>Buscar tema:</td>
+			    <td><select name="searchTema">
+						<option value="">                        </option>
+						<option value="Otro">        Otro        </option>
+						<option value="Ciencia">     Ciencia     </option>
+						<option value="Geografia">   Geografía   </option>
+						<option value="Humanidades"> Humanidades </option>
+				  		<option value="Ocio">        Ocio		 </option>
+						<option value="Tecnologia">  Tecnología  </option>
+					</select></td>
+				<td><input type="submit" value="Buscar"/></td>
+	    	</tr>
+		</form>
+	</table>
+
+    <table>
+	    <% var mensaje   = search     || '';
+	       var buscaTema = searchTema || '';
+	       if (mensaje === '' && buscaTema === '') mensaje= "Lista de preguntas";
+	       else
+	       	  {
+	       	  mensaje = "Resultados de la búsqueda: '" + search + "'";
+	       	  if ( buscaTema !== '' ) mensaje += " y tema: '" + searchTema + "'";
+	       	  }
+	    %>
+    	<caption><%= mensaje %></caption>
+    	<thead>
+		    <tr class="theadTablaPreguntas">
+		    	<% if ( session.user )
+		    		{ %>
+		    		<th style='width:  65px;'>Tema</th>
+		    	<% 	}
+		    	else
+		    		{ %>
+		    		<th>Tema</th>
+		    	<%  } %>
+		    	<th style='width: 300px;'>Pregunta</th>
+		    </tr>
+	    </thead>
+	    <tbody class="tablaConOverflow" style='height: 180px;'>
 	    <%  var i;
 	    	for (i=0; i < quizes.length; i++ )
 	    		{
 	    		 %> <tr>
-	    		 	<td><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].indice_tematico %> </a></td>
-	    		 	<td>&nbsp&nbsp&nbsp</td>
-	    		 	<td><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %> </a></td>
-	    		 	<% if ( session.user)
+	    		 	<td style='width:  90px;'><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].indice_tematico %> </a></td>
+	    		 	<td style='width: 300px;'><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %> </a></td>
+	    		 	<% if ( session.user )
 	    		 		{ %>
 		    		 	<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
 		    		 	<td>
@@ -23,6 +63,7 @@
 	    		 </tr> <%
 	    		}
 	    %>
+	    </tbody>
     </table>
     <p/>
     <% if ( session.user )

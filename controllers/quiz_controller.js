@@ -58,18 +58,28 @@ exports.load = function( req, res, next, quizId )
 
 exports.index = function ( req, res )
 	{
-	var textToSearch = req.query.search;
+	var textToSearch = req.query.search     || "";
+	var temaToSearch = req.query.searchTema || "";
 	// condicion para mostrar todos los ids (lista de todas las preguntas)
-	var condicion    = { where: { id : { "gt" : Number(0) }} };
-	// si incluimos texto a buscar monta la condición de la consulta
-	if (textToSearch !== undefined)
-		condicion = { where: [ "pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%'] };
+	var condicion      = { where: { id : { "gt" : Number(0) }} };
+	// si incluimos texto a buscar monta la condición de la consulta del texto y del tema
+	var buscarPregunta = ["pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%' ];
+	var buscarTema     = { indice_tematico : temaToSearch };
+	// if (textToSearch !== undefined)
+	// 	condicion = { where: [ "pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%'] };
+	// if (temaToSearch !== undefined)
+	// 	condicion = { where: { indice_tematico : temaToSearch } };
+
+	if (textToSearch !== "") condicion = { where: buscarPregunta };
+	if (temaToSearch !== "") condicion = { where: buscarTema };
+	if (textToSearch !== "" && temaToSearch !== "")
+		condicion = { where: [ buscarPregunta , buscarTema ] };
 
 	condicion.order = [ ['indice_tematico', 'ASC'], ['pregunta', 'ASC'] ];
 	models.Quiz.findAll( condicion ).then( function( quizes )
 		{
 		// quizes[0].pregunta = condicion.where;
-		res.render('quizes/index', { quizes: quizes, errors: [] });
+		res.render('quizes/index', { quizes: quizes, search: req.query.search, searchTema: req.query.searchTema ,errors: [] });
 		}).catch( function( error )
 			{
 			next( error );

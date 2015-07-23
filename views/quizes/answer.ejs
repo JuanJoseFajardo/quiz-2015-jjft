@@ -1,10 +1,9 @@
-    <p>Respuesta <%= respuesta %></p>
+    <p class="left">Respuesta <%= respuesta %></p>
     </br>
-    <ul>
+    <ul class="left">
     <% if (respuesta == 'Incorrecta')
     	{ %>
-    		<li><a href="/quizes/<%= quiz.id %>">Inténtelo otra vez</a></li>
+    		<li style='text-align: left;'><a href="/quizes/<%= quiz.id %>">Inténtelo otra vez</a></li>
     <%  } %>
-    
-    		<li><a href="/quizes">Volver a lista de preguntas</a></li>
+    		<li style='text-align: left;'><a href="/quizes">Volver a lista de preguntas</a></li>
     </ul>

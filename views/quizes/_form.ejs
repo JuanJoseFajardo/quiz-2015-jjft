@@ -1,5 +1,6 @@
-<label for="tema" class="ren">Tema:</label>
-	<select name="quiz[indice_tematico]">
+<tr>
+<td><label for="tema" class="ren">Tema:</label></td>
+<td><select name="quiz[indice_tematico]">
 		<option value="Otro" 
 			<% if ( quiz.indice_tematico === "Otro" )        { %> selected <% } %> > Otro
 		</option>
@@ -19,13 +20,17 @@
 			<% if ( quiz.indice_tematico === "Tecnologia" )  { %> selected <% } %> > Tecnología 
 		</option>
 	</select> <p>
+</td></tr>
+<tr>
+<td><label for="preg" class="ren">Pregunta:</label></td>
+<td><input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/> </td>
+</tr>
+<tr>
+<td><label for="resp" class="ren">Respuesta:</label></td>
+<td><input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/> </td>
+</tr>
+<tr>
+<td><a href="/quizes"><button type="button">Cancelar</button></a></td>
 
-<label for="preg" class="ren">Pregunta:</label>
- 	<input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/> <p>
-
-<label for="resp" class="ren">Respuesta:</label>
- 	<input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/> <p>
-
-<a href="/quizes"><button type="button">Cancelar</button></a>
-
-<input type="submit" value="salvar"/>
+<td><input type="submit" value="salvar"/></td>
+</tr>

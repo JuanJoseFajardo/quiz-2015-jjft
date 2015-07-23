@@ -1,17 +1,22 @@
-    <h2>Login</h2>
-
-    <form method="post" action="/login">
-    	<div class="field">
-    		<label for="login">Login:</label><br/>
-    			<input type="text" id="login" name="login" size="30" />
-    	</div>
-
-    	<div class="field">
-    		<label for="password">Password:</label><br/>
-    			<input type="password" id="password" name="password" size="30" />
-    	</div>
-
-    	<div class="actions">
-   			<input type="submit" name="commit" value="Login" />
-    	</div>
-    </form>
+    <table>
+	    <caption><h2>Login</h2></caption>
+	    <form method="post" action="/login">
+	    	<tr>
+		    	<!-- <div class="field"> -->
+		    		<td><label for="login">Login</label></td>
+		    		<td><input type="text" id="login" name="login" size="15" /></td>
+		    	<!-- </div> -->
+	    	</tr>
+	    	<tr>
+		    	<!-- <div class="field"> -->
+		    		<td><label for="password">Password</label></td>
+		    		<td><input type="password" id="password" name="password" size="15" /></td>
+		    	<!-- </div> -->
+		    </tr>
+		    <tr>
+	    		<!-- <div class="actions"> -->
+	   				<td><input type="submit" name="commit" value="Login" /></td>
+	    		<!-- </div> -->
+	    	</tr>
+	    </form>
+    </table>

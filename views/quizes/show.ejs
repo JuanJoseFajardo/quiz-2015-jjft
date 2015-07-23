@@ -1,29 +1,37 @@
-    <form method="get" action="/quizes/<%= quiz.id %>/answer">
-    	<p> Tema: <%= quiz.indice_tematico %></p></br>
-    	<p> Pregunta: <%= quiz.pregunta %></p></br>
-    	<input type="text" name="respuesta" placeholder="Responda aquí"/>
-    	<input type="submit" value="Enviar"/>
-    </form>
+    <table>
+    	<form method="get" action="/quizes/<%= quiz.id %>/answer">
+	    	<tr><td><%= quiz.indice_tematico %> : <%= quiz.pregunta %></td></tr>
+		    <tr>
+		    	<td><input type="text" name="respuesta" placeholder="Responda aquí"/></td>
+	    		<td><input type="submit" value="Enviar"/></td>
+		    </tr>
+    	</form>
+    </table>
     </br>
-    <p><a href="/quizes">Volver a lista de preguntas</a></p>
-    </br>
-    <p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
-    </br>
-    <p><strong>Comentarios:</strong></p>
-    <ul class="comment">
+    <p class='left'><a href="/quizes">Volver a lista de preguntas</a></p>
+    </br></br>
+    <p class='left'><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
+    </br></br>
+
+    <table class='tableBorder'>
+    <caption><strong>Comentarios</strong></caption>
+    <tbody class="tablaConOverflow" style='height: 160px;'>
     <% for(index in quiz.Comments)
-    	{
-    	if (quiz.Comments[index].publicado)
+    	{ %>
+    	<tr class='tableBorder'>
+     <% if (quiz.Comments[index].publicado)
     		{ %>
-    		<li> <%= quiz.Comments[index].texto %>
+    		<td style='width: 350px'> <%= quiz.Comments[index].texto %></td>
 	    	 	<% if ( session.user )
 	    			{
 	    			if ( session.user.username === "admin" )
 		    			{ %>
-	    				<a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/unpublish"><button>Despublicar</button></a>
+		    				<td><%= index %></td>
+	    				    <td style='width: 50px'><form method="post" action="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/unpublish?_method=put">
+	 		   				     <input type="submit" value="Despublicar"/>
+	    					</form></td>
 		    		 <% } %>
 		    	<% } %>
-	    	</li>
     	 <% }
     	 else
     	 	{
@@ -31,11 +39,16 @@
     			{
     			if ( session.user.username === "admin" )
 	    			{ %>
-	    			<li> <%= quiz.Comments[index].texto %>
-	    				<a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish"><button>Publicar</button></a>
-	    			</li>
+	    			<td><%= index %></td>
+	    			<td style='width: 200px'><%= quiz.Comments[index].texto %></td>
+	    			<td style='width: 50px'><form method="post" action="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish?_method=put">
+	 		   				     <input type="submit" value="Publicar"/>
+	    				</form></td>
 	    		 <% } %>
 	    	<% } %>
-    	<%  } %>	 	
+    	<%  } %>
+    	</tr>	 	
     <%  } %>
+    </tbody>
+    </table>
     </ul>

@@ -46,18 +46,53 @@ ul
 	list-style-type: none;
 	}
 
-ul.comment
-	{
-	list-style-type: disc;
-	}
-
 tr
 	{
 	text-align: left;
+	}
+
+thead
+	{
+	width: 100%;
 	}
 
 #ErrorMsgs
 	{
 	color : #f61;
 	font-size: smaller;
+	}
+
+.right
+	{
+	float: right;
+	}
+	
+.left
+	{
+	float: left;
+	}
+
+caption
+	{
+	font-size: 1em;
+	font-weight: bold;
+	padding: .3em;
+	}
+
+.tablaConOverflow
+	{
+ 	float: left;
+ 	overflow: auto;
+	}
+
+.theadTablaPreguntas
+	{
+	width: 100%;
+	display: table;
+	}
+
+.tableBorder
+	{
+	border: 1px solid black;
+	border-collapse: collapse;
 	}
