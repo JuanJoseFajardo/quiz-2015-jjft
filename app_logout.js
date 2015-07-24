@@ -13,6 +13,10 @@ var routes         = require('./routes/index');
 // var users = require('./routes/users');
 var session        = require('express-session');
 
+
+var timeout        = require('connect-timeout');
+
+
 var app = express();
 
 // view engine setup
@@ -57,22 +61,58 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // control autologout
-app.use( function ( req, res, next )
+app.use( '/', timeout('4s'), haltOnTimedout, function ( req, res, next )
 	{
 	if ( req.session.user )
 		{
-		if ( req.session.expire )
-			if ( (((new Date()).getTime()) - req.session.expire) > 4000 )
-				{
-				delete req.session.user;
-				// redirect a path anterior a login
-				res.redirect('/login');
-				}
-		req.session.expire = (new Date()).getTime();
+		// if ( req.session.expire )
+		// 	if ( (((new Date()).getTime()) - req.session.expire) > 4000 )
+		// 		{
+		// 		delete req.session.user;
+		// 		// redirect a path anterior a login
+		// 		res.redirect('/login');
+		// 		}
+		// req.session.expire = (new Date()).getTime();
+
+		// if ( req.session.timeout ) clearInterval( req.session.timeout );
+
+		aa( req, res, function( err, req, res )
+			{
+				if ( err ) return next(err);
+				if (req.timedout)
+					{
+					delete req.session.user;
+					// redirect a path anterior a login
+					res.redirect('/login');			
+					}
+			} );
+
+
+		// req.session.timeout = setTimeout( function( req, res )
+		// 	{
+		// 		delete req.session.user;
+		// 		// redirect a path anterior a login
+		// 		res.redirect('/login');
+
+		// 	// res.redirect('/logout');
+		// 	// delete req.session.user;
+		// 	// redirect a path anterior a login
+		// 	// res.redirect( req.session.redir.toString());
+		// 	}, 4000);
+		// req.session.timeout = 0;
 		}
 	next();
 	});
 
+function haltOnTimedout(req, res, next)
+	{
+  	if (!req.timedout) next();
+	}
+
+function aa( req, res, cb )
+	{
+	setTimeout( function() { cb( null, req, res); } , 4000 );
+	}
 
 // Helpers dinámicos:
 app.use(function ( req, res, next )

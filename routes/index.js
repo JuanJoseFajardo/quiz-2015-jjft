@@ -95,3 +95,5 @@ router.get('/logout', sessionController.destroy);
 
 
 module.exports = router;
+
+

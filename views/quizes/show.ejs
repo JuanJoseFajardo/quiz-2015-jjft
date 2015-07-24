@@ -21,12 +21,12 @@
     	<tr class='tableBorder'>
      <% if (quiz.Comments[index].publicado)
     		{ %>
+		    <td>-->&nbsp&nbsp</td>
     		<td style='width: 350px'> <%= quiz.Comments[index].texto %></td>
 	    	 	<% if ( session.user )
 	    			{
 	    			if ( session.user.username === "admin" )
 		    			{ %>
-		    				<td><%= index %></td>
 	    				    <td style='width: 50px'><form method="post" action="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/unpublish?_method=put">
 	 		   				     <input type="submit" value="Despublicar"/>
 	    					</form></td>
@@ -39,7 +39,7 @@
     			{
     			if ( session.user.username === "admin" )
 	    			{ %>
-	    			<td><%= index %></td>
+	    			<td>-->&nbsp&nbsp</td>
 	    			<td style='width: 200px'><%= quiz.Comments[index].texto %></td>
 	    			<td style='width: 50px'><form method="post" action="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish?_method=put">
 	 		   				     <input type="submit" value="Publicar"/>

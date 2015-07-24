@@ -1,7 +1,10 @@
      <table>
      	<tr><td>Añadir comentario</td>
     	<form method="post" action="/quizes/<%=quizId%>/comments/">
-	    	<td><input type="text" id="comment" name="comment[texto]" value=""/> </td>
-    		<tr><td><button type="submit">Enviar</button></td></tr>
+	    	<td><input type="text" id="comment" name="comment[texto]" value="" required/> </td>
+    		<tr>
+    			<td><button type="submit">Enviar</button></td>
+    			<td><a href="/quizes"><button type="button">Cancelar</button></a></td>
+    		</tr>
     	</form>
     </table>

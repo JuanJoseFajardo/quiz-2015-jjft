@@ -1,5 +1,6 @@
 // Session controller
 
+
 // MiddleWare de autorización de accessos HTTP restringidos
 
 exports.loginRequired = function( req, res, next )
@@ -7,6 +8,7 @@ exports.loginRequired = function( req, res, next )
 	if ( req.session.user ) next();
 	else 				    res.redirect('/login');
 	};
+
 
 // GET /login
 //
@@ -41,11 +43,11 @@ exports.create = function( req, res )
 		// Crea req.session.user y guarda campos: id y username
 		// La sesión se define por la existencia de:  req.session.user
 		req.session.user = { id: user.id, username: user.username };
-
 		// redirección a path anterior a login
-		res.redirect( req.session.redir.toString());
+		res.redirect( req.session.redir.toString() );
 		});
 	};
+
 
 // DELETE /logout
 //
