@@ -63,7 +63,8 @@ app.use( function ( req, res, next )
 		{
 		if ( req.session.expire )
 			{	
-			if ( (((new Date()).getTime()) - req.session.expire) > 120000 )
+			// if ( (((new Date()).getTime()) - req.session.expire) > 120000 )
+			if ( (((new Date()).getTime()) - req.session.expire) > 5000 )				
 				{
 				delete req.session.user;
 				// redirect a path anterior a login
