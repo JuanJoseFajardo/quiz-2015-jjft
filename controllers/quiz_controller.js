@@ -58,8 +58,8 @@ exports.load = function( req, res, next, quizId )
 
 exports.index = function ( req, res )
 	{
-	var textToSearch = req.query.search     || "";
-	var temaToSearch = req.query.searchTema || "";
+	var textToSearch   = req.query.search     || "";
+	var temaToSearch   = req.query.searchTema || "";
 	// condicion para mostrar todos los ids (lista de todas las preguntas)
 	var condicion      = { where: { id : { "gt" : Number(0) }} };
 	// si incluimos texto a buscar monta la condición de la consulta del texto y del tema

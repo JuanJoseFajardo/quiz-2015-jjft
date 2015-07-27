@@ -15,7 +15,16 @@
 
     <table class='tableBorder'>
     <caption><strong>Comentarios</strong></caption>
-    <tbody class="tablaConOverflow" style='height: 160px;'>
+    
+    <% if (quiz.Comments.length > 0)
+    	{ %>
+    	<tbody class="tablaConOverflow" style='height: 160px;'>
+    	<% } 
+    	else
+    	   { %>
+    	<tbody>
+    	<% } %>
+
     <% for(index in quiz.Comments)
     	{ %>
     	<tr class='tableBorder'>
@@ -41,9 +50,12 @@
 	    			{ %>
 	    			<td>-->&nbsp&nbsp</td>
 	    			<td style='width: 200px'><%= quiz.Comments[index].texto %></td>
-	    			<td style='width: 50px'><form method="post" action="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish?_method=put">
+	    			<td style='width: 50px; text-align:left;'><form method="post" action="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish?_method=put">
 	 		   				     <input type="submit" value="Publicar"/>
 	    				</form></td>
+    				<td style='width: 100px text-align:right;'><form method="post" action="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id %>?_method=delete">
+	    		 			<button type="submit" onClick="return confirm('Está seguro de eliminar el comentario: <%= quiz.Comments[index].texto %>');">eliminar</button>
+	    		 		</form></td>
 	    		 <% } %>
 	    	<% } %>
     	<%  } %>

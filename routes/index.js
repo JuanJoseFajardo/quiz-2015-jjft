@@ -5,12 +5,13 @@
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-var express           = require('express');
-var router            = express.Router();
+var express             = require('express');
+var router              = express.Router();
 
-var quizController    = require('../controllers/quiz_controller.js');
-var commentController = require('../controllers/comment_controller.js');
-var sessionController = require('../controllers/session_controller.js');
+var quizController      = require('../controllers/quiz_controller.js');
+var commentController   = require('../controllers/comment_controller.js');
+var sessionController   = require('../controllers/session_controller.js');
+var statisticController = require('../controllers/statistic_controller.js');
 
 /* GET home page. */
 router.get('/', function(req, res)
@@ -47,6 +48,12 @@ router.put('/quizes/:quizId(\\d+)',        sessionController.loginRequired, quiz
 // DELETE questions
 router.delete('/quizes/:quizId(\\d+)',     sessionController.loginRequired, quizController.destroy);
 // 
+// 
+// Definición de rutas /quizes/statistics
+// 
+router.get('/quizes/statistics', 		   sessionController.loginRequired, statisticController.index);
+
+// 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -56,6 +63,9 @@ router.delete('/quizes/:quizId(\\d+)',     sessionController.loginRequired, quiz
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 // POST comment
 router.post('/quizes/:quizId(\\d+)/comments',    commentController.create);
+// DELETE comment
+router.delete('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)', sessionController.loginRequired, commentController.destroy);
+
 // GET publish comment
 // only for authenticated users using the authenticacion middleware 'sessionController.loginRequired'
 // that pass through the next controller if it's true (login ok)
@@ -92,6 +102,11 @@ router.get('/login',  sessionController.new);
 router.post('/login', sessionController.create);
 // --->destruir sesión
 router.get('/logout', sessionController.destroy);
+
+
+
+
+
 
 
 module.exports = router;

@@ -119,3 +119,20 @@ exports.updateUnpublish = function( req, res )
 			next( error );
 			});
 	};
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// 
+// DELETE /quizes/:quizId/comments/:commentId
+// 
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+exports.destroy = function( req, res )
+	{
+	req.comment.destroy().then( function()
+		{
+		res.redirect( '/quizes/' + req.params.quizId );
+		}).catch( function( error )
+			{
+			next( error );
+			});
+	};
