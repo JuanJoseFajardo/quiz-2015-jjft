@@ -16,14 +16,19 @@
     <table class='tableBorder'>
     <caption><strong>Comentarios</strong></caption>
     
-    <% if (quiz.Comments.length > 0)
-    	{ %>
+    <% 
+    var numCom = 0;
+    for(index in quiz.Comments)
+    	if (quiz.Comments[index].publicado) numCom++;
+    if (numCom > 0)
+    	{
+    %>
     	<tbody class="tablaConOverflow" style='height: 160px;'>
-    	<% } 
-    	else
-    	   { %>
+     <% } 
+    else
+    	{ %>
     	<tbody>
-    	<% } %>
+    <%  } %>
 
     <% for(index in quiz.Comments)
     	{ %>
