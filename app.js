@@ -68,7 +68,8 @@ app.use( function ( req, res, next )
 				{
 				delete req.session.user;
 				// redirect a path anterior a login
-				res.redirect('/login');
+				res.redirect( req.session.redir.toString());
+				// res.redirect('/login');
 				}
 			else
 				req.session.expire = (new Date()).getTime();
