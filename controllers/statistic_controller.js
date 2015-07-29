@@ -13,7 +13,7 @@ var models = require('../models/models.js');
 
 exports.index = function ( req, res )
 	{
-	var quizStats = {};
+	var quizStats       = {};
 	var condPublished   = { where: { publicado: true  }};
 	var condUnpublished = { where: { publicado: false }};
 	// var buscarPreguntasNoComentarios = {
@@ -47,10 +47,7 @@ exports.index = function ( req, res )
 						}).catch( function( error )
 							{
 							next( error );
-							}).finally(function ()
-								{
-							    next();
-								});
+							});
 					});
 				});
 			});

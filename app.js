@@ -59,25 +59,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 // control autologout
 app.use( function ( req, res, next )
 	{
+	var caducidad = false;
 	if ( req.session.user )
 		{
 		if ( req.session.expire )
 			// if ( (((new Date()).getTime()) - req.session.expire) > 120000 )
-			if ( (((new Date()).getTime()) - req.session.expire) > 5000 )
+			if ( (((new Date()).getTime()) - req.session.expire) > 10000 )
 				{
 				delete req.session.user;
-				// redirect a path anterior a login
-				res.redirect('/login');
+				delete req.session.expire;
+				req.session.errors = [ { "message": "sesión caducada"} ];
+				res.redirect("/login");
+				caducidad = true;
 				}
-		req.session.expire = (new Date()).getTime();
-		}
-	next();
-	});
 
+		if ( ! caducidad )
+			{
+			req.session.expire = (new Date()).getTime();
+			next();
+			}
+		}
+	else
+		next();
+	});
 
 // Helpers dinámicos:
 app.use(function ( req, res, next )
 	{
+	console.log(req.session.redir);
+	console.log(req.path);
 	// si no existe lo inicializa
 	 if (! req.session.redir ) req.session.redir = '/';
 	// guardar path en session.dir para después de login
