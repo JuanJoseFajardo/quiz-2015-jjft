@@ -102,14 +102,16 @@ sequelize.sync().success( function()
 		if (count === 0) 
 			{
 			// la tabla se inicializa solo si está vacía
-			User.bulkCreate( 
-				// arrayUsers
-				 [
-				   { username: 'admin', password: '1234', isAdmin: true  }
-				  ,{ username: 'pepe' , password: '5678', isAdmin: false }
-				 ]				
+			User.create( arrayUsers[0] );
+			User.create( arrayUsers[1] )
+			// User.bulkCreate( 
+			// 	// arrayUsers
+			// 	 [
+			// 	   { username: 'admin', password: '1234', isAdmin: true  }
+			// 	  ,{ username: 'pepe' , password: '5678', isAdmin: false }
+			// 	 ]				
 				 
-				 )
+			// 	 )
 			.success( function()
 					{
 					console.log('Base de datos (tabla user) inicializada');
@@ -119,17 +121,24 @@ sequelize.sync().success( function()
 							{
 							// la tabla se inicializa solo si está vacía
 							// estos quizes pertenecen al usuario pepe (2)
-							Quiz.bulkCreate( 
-								// arrayPreguntas
-					[
-					   { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
-					  ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
-					  ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
-					  ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
-					  ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
-					  ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
-					]
-								)
+							Quiz.create( arrayPreguntas[0] );
+							Quiz.create( arrayPreguntas[1] );
+							Quiz.create( arrayPreguntas[2] );
+							Quiz.create( arrayPreguntas[3] );
+							Quiz.create( arrayPreguntas[4] );
+							Quiz.create( arrayPreguntas[5] )
+
+					// 		Quiz.bulkCreate( 
+					// 			// arrayPreguntas
+					// [
+					//    { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
+					//   ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					//   ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					//   ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					//   ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
+					//   ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					// ]
+					// 			)
 							.success( function()
 									{
 									console.log('Base de datos (tabla quiz) inicializada');
