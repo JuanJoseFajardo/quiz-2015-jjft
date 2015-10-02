@@ -107,19 +107,22 @@ sequelize.sync().success( function()
 			.success( function()
 				{
 				console.log('Base de datos (tabla quiz) inicializada');
-				User.count().success( function ( count )
-					{
-					if ( count === 0 )
-						{
-						// la tabla se inicializa solo si está vacía
-						User.bulkCreate( arrayUsers )
-						.success( function()
-								{
-								console.log('Base de datos (tabla user) inicializada');
-								});
-						}
-					});
 				});
 			}
 		});
+		User.count().success( function ( count )
+			{
+			if ( count === 0 )
+				{
+				// la tabla se inicializa solo si está vacía
+				User.bulkCreate( arrayUsers )
+				.success( function()
+						{
+						console.log('Base de datos (tabla user) inicializada');
+						});
+				}
+		});
 	});
+
+
+
