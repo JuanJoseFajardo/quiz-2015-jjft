@@ -45,10 +45,11 @@ module.exports = function( sequelize, DataTypes )
 		  	validate : { notEmpty: { msg: "-> Falta Password" }},
 		  	set      : function ( password )
 					  		{
-					  		var encripted = crypto
-					  						.createHmac( 'sha1', key )
-					  						.update( password )
-					  						.digest( 'hex' );
+					  		var encripted = password;
+					  		// var encripted = crypto
+					  		// 				.createHmac( 'sha1', key )
+					  		// 				.update( password )
+					  		// 				.digest( 'hex' );
 					  		// Evita passwords vacíos
 					  		if (password === '') encripted = '';
 					  		this.setDataValue( 'password', encripted );
@@ -66,10 +67,11 @@ module.exports = function( sequelize, DataTypes )
 	      	verifyPassword: function ( password )
 	      		{
 	      		// encripta el password introducido
-	      		var encripted = crypto
-		  						.createHmac( 'sha1', key )
-		  						.update( password )
-		  						.digest( 'hex' );
+	      		var encripted = password;
+	      		// var encripted = crypto
+		  					// 	.createHmac( 'sha1', key )
+		  					// 	.update( password )
+		  					// 	.digest( 'hex' );
 	      	  	return ( encripted === this.password );
 	      		}
 	    	}
