@@ -33,26 +33,42 @@ var sequelize = new Sequelize(DB_name, user, pwd, {  dialect : protocol
 var quiz_path = path.join(__dirname, 'quiz');
 var Quiz      = sequelize.import( quiz_path );
 
-// Importar definición de la tabla Commentz en comment.js ('comment' es 'commnet.js')
+// Importar definición de la tabla Comment en comment.js ('comment' es 'comment.js')
 
 var comment_path = path.join(__dirname, 'comment');
 var Comment      = sequelize.import( comment_path );
+
+// Importar definición de la tabla User en user.js ('user' es 'user.js')
+
+var user_path = path.join(__dirname, 'user');
+var User      = sequelize.import( user_path );
+
 
 // Relación 1 a N entre la tabla Quiz y Comment. ( N comentarios pertenecen a 1 Quiz)
 Comment.belongsTo( Quiz );
 // Relación 1 a N entre la tabla Quiz y Comment ( un Quiz puede tener N comentarios )
 Quiz.hasMany( Comment );
 
+// Relación 1 a N entre la tabla Quiz y User. ( N Quizes pertenecen a 1 User)
+Quiz.belongsTo( User );
+// Relación 1 a N entre la tabla User y Quiz ( 1 User puede tener N Quizes )
+User.hasMany( Quiz );
+
 
 // exportar definición de tabla Quiz
 // para que se pueda importar desde otros lugares de la aplicación y
 // dar acceso a los elementos del modelo
-exports.Quiz = Quiz;
+exports.Quiz    = Quiz;
 
 // exportar definición de tabla Comments
 // para que se pueda importar desde otros lugares de la aplicación y
 // dar acceso a los elementos del modelo
 exports.Comment = Comment;
+
+// exportar definición de tabla User
+// para que se pueda importar desde otros lugares de la aplicación y
+// dar acceso a los elementos del modelo
+exports.User    = User;
 
 // creación e inicialización de la DDBB sincronizando el modelo
 
@@ -60,27 +76,67 @@ exports.Comment = Comment;
 // con el modelo definido construyendo la tabla concreta que estará vacía.
 // Ejecuta el callback del método success cuando se ha sincronizado
 
+var arrayUsers = [
+				   { username: 'admin', password: '1234', isAdmin: true  }
+				  ,{ username: 'pepe' , password: '5678', isAdmin: false }
+				 ];
+
+var arrayPreguntas = [
+					   { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
+					  ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					  ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					  ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					  ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
+					  ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					];
+
 // sequelize.sync() crea e inicializa tabla de preguntas en DB
 // success(..) ejecuta el manejador una vez creada la tabla
 sequelize.sync().success( function()
 	{
 	// .count().success() devuelve en count el número de filas de la tabla
-	Quiz.count().success( function ( count )
+	User.count().success( function ( count )
 		{
 		// .create( ..objeto ..) crea registros en la tabla que serán las preguntas de la tabla.
 		// los campos de la tabla deben tener el mismo nombre que las propiedades
-		if (count == 0) 
+		if (count === 0) 
 			{
-			Quiz.create( { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  });
-			Quiz.create( { pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  });
-			Quiz.create( { pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  });
-			Quiz.create( { pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' });
-			Quiz.create( { pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    });
-			Quiz.create( { pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' })
+			// la tabla se inicializa solo si está vacía
+			User.bulkCreate( 
+				// arrayUsers
+				 [
+				   { username: 'admin', password: '1234', isAdmin: true  }
+				  ,{ username: 'pepe' , password: '5678', isAdmin: false }
+				 ]				
+				 
+				 )
 			.success( function()
-                {
-                console.log('Base de datos inicializada');
-             	});					               
+					{
+					console.log('Base de datos (tabla user) inicializada');
+					Quiz.count().success( function ( count )
+						{
+						if ( count === 0 )
+							{
+							// la tabla se inicializa solo si está vacía
+							// estos quizes pertenecen al usuario pepe (2)
+							Quiz.bulkCreate( 
+								// arrayPreguntas
+					[
+					   { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
+					  ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					  ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					  ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					  ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
+					  ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					]
+								)
+							.success( function()
+									{
+									console.log('Base de datos (tabla quiz) inicializada');
+									});
+							}
+						});
+					});
 			}
 		});
 	});
