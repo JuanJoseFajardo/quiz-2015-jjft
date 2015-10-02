@@ -105,18 +105,18 @@ sequelize.sync().success( function()
 		console.log( '88888888888888888888888' + count );
 
 			// la tabla se inicializa solo si está vacía
-			User.create( { username: 'admin', password: '1234', isAdmin: true  } );
+			// User.create( { username: 'admin', password: '1234', isAdmin: true  } );
 		console.log( '7777777777777777777777' + count );
 
-			User.create( { username: 'pepe' , password: '5678', isAdmin: false } )
-			// User.bulkCreate( 
+			// User.create( { username: 'pepe' , password: '5678', isAdmin: false } )
+			User.bulkCreate( 
 			// 	// arrayUsers
-			// 	 [
-			// 	   { username: 'admin', password: '1234', isAdmin: true  }
+				 [
+				   { username: 'admin', password: '1234', isAdmin: true  }
 			// 	  ,{ username: 'pepe' , password: '5678', isAdmin: false }
-			// 	 ]				
+				 ]				
 				 
-			// 	 )
+				 )
 			.success( function()
 					{
 					console.log('Base de datos (tabla user) inicializada');
