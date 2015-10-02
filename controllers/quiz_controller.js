@@ -73,7 +73,7 @@ exports.index = function ( req, res )
 		condicion = { where: [ buscarPregunta , buscarTema ] };
 
 	condicion.order   = [ ['indice_tematico', 'ASC'], ['pregunta', 'ASC'] ];
-	condicion.include = [ { model: models.User } ];
+	// condicion.include = [ { model: models.User } ];
 
 	models
 	.Quiz
