@@ -107,16 +107,18 @@ sequelize.sync().success( function()
 			// la tabla se inicializa solo si está vacía
 			// User.create( { username: 'admin', password: '1234', isAdmin: true  } );
 		console.log( '7777777777777777777777' + count );
+			Quiz.create( { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 } )
+
 
 			// User.create( { username: 'pepe' , password: '5678', isAdmin: false } )
-			User.bulkCreate( 
+			// User.bulkCreate( 
 			// 	// arrayUsers
-				 [
-				   { username: 'admin', password: '1234', isAdmin: true  }
+				 // [
+				 //   { username: 'admin', password: '1234', isAdmin: true  }
 			// 	  ,{ username: 'pepe' , password: '5678', isAdmin: false }
-				 ]				
+				 // ]				
 				 
-				 )
+				 // )
 			.success( function()
 					{
 					console.log('Base de datos (tabla user) inicializada');
@@ -135,24 +137,24 @@ sequelize.sync().success( function()
 							// Quiz.create( arrayPreguntas[2] );
 							// Quiz.create( arrayPreguntas[3] );
 							// Quiz.create( arrayPreguntas[4] );
-							Quiz.create( { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 } )
+					// 		Quiz.create( { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 } )
 
-					// 		Quiz.bulkCreate( 
-					// 			// arrayPreguntas
-					// [
-					//    { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
-					//   ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
-					//   ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
-					//   ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
-					//   ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
-					//   ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
-					// ]
-					// 			)
-							.success( function()
-									{
-									console.log('Base de datos (tabla quiz) inicializada');
-									console.error('Base de datos (tabla quiz) inicializada');
-									});
+					// // 		Quiz.bulkCreate( 
+					// // 			// arrayPreguntas
+					// // [
+					// //    { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
+					// //   ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					// //   ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					// //   ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					// //   ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
+					// //   ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					// // ]
+					// // 			)
+					// 		.success( function()
+					// 				{
+					// 				console.log('Base de datos (tabla quiz) inicializada');
+					// 				console.error('Base de datos (tabla quiz) inicializada');
+					// 				});
 							}
 						});
 					});
