@@ -110,6 +110,9 @@ sequelize.sync().success( function()
 				});
 			}
 		});
+
+		console.log('aaaaaaaaaaaaaaaaaaaaaaaa');
+
 		User.count().success( function ( count )
 			{
 			if ( count === 0 )

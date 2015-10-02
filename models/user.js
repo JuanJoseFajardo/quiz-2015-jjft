@@ -73,15 +73,17 @@ module.exports = function( sequelize, DataTypes )
 	      	  	return ( encripted === this.password );
 	      		}
 	    	}
-  		},
-		{
-	    classMethods:
-	    	{
-	      	username: function ( id )
-	      		{
-	      	  	return this.username;
-	      		}
-	    	}
-  		});
+  		}
+  // 		,
+		// {
+	 //    classMethods:
+	 //    	{
+	 //      	username: function ( id )
+	 //      		{
+	 //      	  	return this.username;
+	 //      		}
+	 //    	}
+  // 		}
+  		);
 	return ( User );
 	}
