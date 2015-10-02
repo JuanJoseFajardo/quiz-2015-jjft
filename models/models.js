@@ -100,7 +100,6 @@ sequelize.sync().success( function()
 		// .create( ..objeto ..) crea registros en la tabla que serán las preguntas de la tabla.
 		// los campos de la tabla deben tener el mismo nombre que las propiedades
 		console.log( '99999999999999999999999' + count );
-		console.error( '99999999999999999999999' + count );
 		if (count === 0) 
 			{
 		console.log( count );
@@ -123,6 +122,7 @@ sequelize.sync().success( function()
 					 // response.send("Error " + err);
 					Quiz.count().success( function ( count )
 						{
+						console.log( 'aaaaaaaaaaa' + count );
 						if ( count === 0 )
 							{
 										console.log( 'aaaaaaaaaaa' + count );
