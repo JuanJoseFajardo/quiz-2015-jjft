@@ -76,89 +76,76 @@ exports.User    = User;
 // con el modelo definido construyendo la tabla concreta que estará vacía.
 // Ejecuta el callback del método success cuando se ha sincronizado
 
-// var arrayUsers = [
-// 				   { username: 'admin', password: '1234', isAdmin: true  }
-// 				  ,{ username: 'pepe' , password: '5678', isAdmin: false }
-// 				 ];
+var arrayUsers = [
+				   { username: 'admin', password: '1234', isAdmin: true  }
+				  ,{ username: 'pepe' , password: '5678', isAdmin: false }
+				 ];
 
-// var arrayPreguntas = [
-// 					   { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
-// 					  ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
-// 					  ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
-// 					  ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
-// 					  ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
-// 					  ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
-// 					];
+var arrayPreguntas = [
+					   { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
+					  ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					  ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					  ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					  ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
+					  ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					];
 
 // sequelize.sync() crea e inicializa tabla de preguntas en DB
 // success(..) ejecuta el manejador una vez creada la tabla
 sequelize.sync().success( function()
 	{
 	// .count().success() devuelve en count el número de filas de la tabla
-	User.count().success( function ( count )
+	Quiz.count().success( function ( count )
 		{
 		// .create( ..objeto ..) crea registros en la tabla que serán las preguntas de la tabla.
 		// los campos de la tabla deben tener el mismo nombre que las propiedades
-		console.log( '99999999999999999999999' + count );
-		if (count == 0) 
+		if (count === 0) 
 			{
-		console.log( '88888888888888888888888' + count );
-
 			// la tabla se inicializa solo si está vacía
-			// User.create( { username: 'admin', password: '1234', isAdmin: true  } );
-		console.log( '7777777777777777777777' + count );
-			Quiz.create( { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 } )
+			// estos quizes pertenecen al usuario pepe (2)
 
-
-			// User.create( { username: 'pepe' , password: '5678', isAdmin: false } )
-			// User.bulkCreate( 
-			// 	// arrayUsers
-				 // [
-				 //   { username: 'admin', password: '1234', isAdmin: true  }
-			// 	  ,{ username: 'pepe' , password: '5678', isAdmin: false }
-				 // ]				
-				 
-				 // )
-			.success( function()
-					{
-					console.log('Base de datos (tabla user) inicializada');
-					console.error('Base de datos (tabla user) inicializada');
-					 // response.send("Error " + err);
-					Quiz.count().success( function ( count )
-						{
-						console.log( 'aaaaaaaaaaa' + count );
-						if ( count == 0 )
-							{
-										console.log( 'aaaaaaaaaaa' + count );
-							// la tabla se inicializa solo si está vacía
-							// estos quizes pertenecen al usuario pepe (2)
 							// Quiz.create( arrayPreguntas[0] );
 							// Quiz.create( arrayPreguntas[1] );
 							// Quiz.create( arrayPreguntas[2] );
 							// Quiz.create( arrayPreguntas[3] );
 							// Quiz.create( arrayPreguntas[4] );
-					// 		Quiz.create( { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 } )
+							// Quiz.create( { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 } )
 
-					// // 		Quiz.bulkCreate( 
-					// // 			// arrayPreguntas
-					// // [
-					// //    { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
-					// //   ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
-					// //   ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
-					// //   ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
-					// //   ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
-					// //   ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
-					// // ]
-					// // 			)
-					// 		.success( function()
-					// 				{
-					// 				console.log('Base de datos (tabla quiz) inicializada');
-					// 				console.error('Base de datos (tabla quiz) inicializada');
-					// 				});
-							}
+							Quiz.bulkCreate( 
+								arrayPreguntas
+					[
+					//    { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
+					//   ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					//   ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
+					//   ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					//   ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
+					//   ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
+					]
+					)
+				.success( function()
+						{
+						console.log('Base de datos (tabla quiz) inicializada');
+						User.count().success( function ( count )
+							{
+							if ( count === 0 )
+								{
+								// la tabla se inicializa solo si está vacía
+								// User.create( { username: 'admin', password: '1234', isAdmin: true  } );
+								// User.create( { username: 'pepe' , password: '5678', isAdmin: false } )
+								User.bulkCreate( 
+									arrayUsers
+									 [
+									 //   { username: 'admin', password: '1234', isAdmin: true  }
+								// 	  ,{ username: 'pepe' , password: '5678', isAdmin: false }
+									 ]								 
+									 )
+								.success( function()
+										{
+										console.log('Base de datos (tabla user) inicializada');
+										});
+								}
+							});
 						});
-					});
 			}
 		});
 	});
-
