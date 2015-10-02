@@ -67,10 +67,10 @@ exports.index = function ( req, res )
 	var buscarPregunta = ["pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%' ];
 	var buscarTema     = { indice_tematico : temaToSearch };
 
-	if (textToSearch !== "") condicion = { where: buscarPregunta };
-	if (temaToSearch !== "") condicion = { where: buscarTema };
-	if (textToSearch !== "" && temaToSearch !== "")
-		condicion = { where: [ buscarPregunta , buscarTema ] };
+	// if (textToSearch !== "") condicion = { where: buscarPregunta };
+	// if (temaToSearch !== "") condicion = { where: buscarTema };
+	// if (textToSearch !== "" && temaToSearch !== "")
+	// 	condicion = { where: [ buscarPregunta , buscarTema ] };
 
 	condicion.order   = [ ['indice_tematico', 'ASC'], ['pregunta', 'ASC'] ];
 	condicion.include = [ { model: models.User } ];
@@ -80,13 +80,11 @@ exports.index = function ( req, res )
 	.findAll( condicion ).then( function( quizes )
 		{
 		// quizes[0].pregunta = condicion.where;
-		res.render('quizes/index', {  quizes     : quizes
-									 ,search     : req.query.search
-									 ,searchTema : req.query.searchTema
-									 ,errors     : []
+		res.render('quizes/index', {  quizes: quizes,search: req.query.search,searchTema: req.query.searchTema, errors: []
 								   });
 		}).catch( function( error )
 			{
+			console.log('aaaaaaaaaaaaaaaaaaa');
 			next( error );
 			});
 	};
