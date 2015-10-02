@@ -115,6 +115,8 @@ sequelize.sync().success( function()
 			.success( function()
 					{
 					console.log('Base de datos (tabla user) inicializada');
+					console.error('Base de datos (tabla user) inicializada');
+					 // response.send("Error " + err);
 					Quiz.count().success( function ( count )
 						{
 						if ( count === 0 )
@@ -142,6 +144,7 @@ sequelize.sync().success( function()
 							.success( function()
 									{
 									console.log('Base de datos (tabla quiz) inicializada');
+									console.error('Base de datos (tabla quiz) inicializada');
 									});
 							}
 						});
@@ -150,5 +153,3 @@ sequelize.sync().success( function()
 		});
 	});
 
-
-console.error(err); response.send("Error " + err);
