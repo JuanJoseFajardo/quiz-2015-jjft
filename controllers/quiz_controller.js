@@ -87,10 +87,7 @@ exports.index = function ( req, res )
 								   });
 		}).catch( function( error )
 			{
-			console.log('aaaaaaaaaaaaaaaaaaaaaa');
-			console.log( error );
 			next( error );
-			console.log('bbbbbbbbbbbbbbbbbbbbbb');
 			});
 	};
 
