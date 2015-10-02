@@ -113,14 +113,14 @@ sequelize.sync().success( function()
 
 							Quiz.bulkCreate( 
 								arrayPreguntas
-					[
+					// [
 					//    { pregunta : 'Capital de Italia'                , respuesta: 'Roma'                        , indice_tematico: 'Geografia'  ,UserId: 2 }
 					//   ,{ pregunta : 'Capital de Portugal'              , respuesta: 'Lisboa'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
 					//   ,{ pregunta : 'Capital de España'                , respuesta: 'Madrid'                      , indice_tematico: 'Geografia'  ,UserId: 2 }
 					//   ,{ pregunta : '1er Sistema Operativo Microsoft'  , respuesta: 'MSDOS'                       , indice_tematico: 'Tecnologia' ,UserId: 2 }
 					//   ,{ pregunta : 'Unidad internacional de potencia' , respuesta: 'Watt'                        , indice_tematico: 'Ciencia'    ,UserId: 2 }
 					//   ,{ pregunta : 'Significado de MOOC'              , respuesta: 'Massive Open Online Course'  , indice_tematico: 'Tecnologia' ,UserId: 2 }
-					]
+					// ]
 					)
 				.success( function()
 						{
@@ -134,10 +134,10 @@ sequelize.sync().success( function()
 								// User.create( { username: 'pepe' , password: '5678', isAdmin: false } )
 								User.bulkCreate( 
 									arrayUsers
-									 [
+									 // [
 									 //   { username: 'admin', password: '1234', isAdmin: true  }
 								// 	  ,{ username: 'pepe' , password: '5678', isAdmin: false }
-									 ]								 
+									 // ]								 
 									 )
 								.success( function()
 										{
