@@ -99,7 +99,7 @@ sequelize.sync().success( function()
 		{
 		// .create( ..objeto ..) crea registros en la tabla que serán las preguntas de la tabla.
 		// los campos de la tabla deben tener el mismo nombre que las propiedades
-		if (count === 0) 
+		if (count == 0) 
 			{
 			// la tabla se inicializa solo si está vacía
 			User.create( arrayUsers[0] );
@@ -117,7 +117,7 @@ sequelize.sync().success( function()
 					console.log('Base de datos (tabla user) inicializada');
 					Quiz.count().success( function ( count )
 						{
-						if ( count === 0 )
+						if ( count == 0 )
 							{
 							// la tabla se inicializa solo si está vacía
 							// estos quizes pertenecen al usuario pepe (2)
