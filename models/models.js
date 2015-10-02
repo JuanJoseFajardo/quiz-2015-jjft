@@ -99,8 +99,11 @@ sequelize.sync().success( function()
 		{
 		// .create( ..objeto ..) crea registros en la tabla que serán las preguntas de la tabla.
 		// los campos de la tabla deben tener el mismo nombre que las propiedades
+		console.log( count );
 		if (count === 0) 
 			{
+		console.log( count );
+
 			// la tabla se inicializa solo si está vacía
 			User.create( { username: 'admin', password: '1234', isAdmin: true  } );
 			User.create( { username: 'pepe' , password: '5678', isAdmin: false } )
@@ -121,6 +124,7 @@ sequelize.sync().success( function()
 						{
 						if ( count === 0 )
 							{
+										console.log( 'aaaaaaaaaaa' + count );
 							// la tabla se inicializa solo si está vacía
 							// estos quizes pertenecen al usuario pepe (2)
 							// Quiz.create( arrayPreguntas[0] );
