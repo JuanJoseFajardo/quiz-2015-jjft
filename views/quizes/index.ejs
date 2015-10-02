@@ -52,7 +52,7 @@
 	    	for (i=0; i < quizes.length; i++ )
 	    		{
 	    		 %> <tr>
-	    		 	<td style='width:  90px;'><%= quizes[i].User.username %> </td>
+	    		 	<td style='width:  90px;'><%= quizes[i].id %> </td>
 	    		 	<td style='width:  90px;'><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].indice_tematico %> </a></td>
 	    		 	<td style='width: 300px;'><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %> </a></td>
 	    		 	<% if ( session.user )
