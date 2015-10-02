@@ -1,3 +1,5 @@
+const SEGUNDOS_CADUCIDAD_SESION = 120; 
+
 var express        = require('express');
 var path           = require('path');
 var favicon        = require('serve-favicon');
@@ -63,8 +65,7 @@ app.use( function ( req, res, next )
 	if ( req.session.user )
 		{
 		if ( req.session.expire )
-			// if ( (((new Date()).getTime()) - req.session.expire) > 120000 )
-			if ( (((new Date()).getTime()) - req.session.expire) > 10000 )
+			if ( (((new Date()).getTime()) - req.session.expire) > ( SEGUNDOS_CADUCIDAD_SESION*1000 ) )
 				{
 				delete req.session.user;
 				delete req.session.expire;

@@ -35,10 +35,12 @@
 		    <tr class="theadTablaPreguntas">
 		    	<% if ( session.user )
 		    		{ %>
+		    		<th style='width:  65px;'>Usuari</th>
 		    		<th style='width:  65px;'>Tema</th>
 		    	<% 	}
 		    	else
 		    		{ %>
+		    		<th>IdUsr</th>
 		    		<th>Tema</th>
 		    	<%  } %>
 		    	<th style='width: 300px;'>Pregunta</th>
@@ -46,9 +48,11 @@
 	    </thead>
 	    <tbody class="tablaConOverflow" style='height: 180px;'>
 	    <%  var i;
+	    	var login = ( session.user ) ? session.user.username :  '';
 	    	for (i=0; i < quizes.length; i++ )
 	    		{
 	    		 %> <tr>
+	    		 	<td style='width:  90px;'><%= quizes[i].User.username %> </td>
 	    		 	<td style='width:  90px;'><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].indice_tematico %> </a></td>
 	    		 	<td style='width: 300px;'><a href="quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %> </a></td>
 	    		 	<% if ( session.user )

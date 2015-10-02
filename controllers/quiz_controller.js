@@ -16,7 +16,9 @@ exports.load = function( req, res, next, quizId )
 	var searchId = { where  : { id: Number(quizId) },
 					 include: [ { model: models.Comment }]
 				   };
-	models.Quiz.find( searchId ). then( function ( quiz )
+	models
+	.Quiz
+	.find( searchId ). then( function ( quiz )
 		{
 		if ( quiz )
 			{
@@ -65,21 +67,25 @@ exports.index = function ( req, res )
 	// si incluimos texto a buscar monta la condición de la consulta del texto y del tema
 	var buscarPregunta = ["pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%' ];
 	var buscarTema     = { indice_tematico : temaToSearch };
-	// if (textToSearch !== undefined)
-	// 	condicion = { where: [ "pregunta like ?", '%' + textToSearch.replace(/(\s)+/g,'%') + '%'] };
-	// if (temaToSearch !== undefined)
-	// 	condicion = { where: { indice_tematico : temaToSearch } };
 
 	if (textToSearch !== "") condicion = { where: buscarPregunta };
 	if (temaToSearch !== "") condicion = { where: buscarTema };
 	if (textToSearch !== "" && temaToSearch !== "")
 		condicion = { where: [ buscarPregunta , buscarTema ] };
 
-	condicion.order = [ ['indice_tematico', 'ASC'], ['pregunta', 'ASC'] ];
-	models.Quiz.findAll( condicion ).then( function( quizes )
+	condicion.order   = [ ['indice_tematico', 'ASC'], ['pregunta', 'ASC'] ];
+	condicion.include = [ { model: models.User } ];
+
+	models
+	.Quiz
+	.findAll( condicion ).then( function( quizes )
 		{
 		// quizes[0].pregunta = condicion.where;
-		res.render('quizes/index', { quizes: quizes, search: req.query.search, searchTema: req.query.searchTema ,errors: [] });
+		res.render('quizes/index', {  quizes     : quizes
+									 ,search     : req.query.search
+									 ,searchTema : req.query.searchTema
+									 ,errors     : []
+								   });
 		}).catch( function( error )
 			{
 			next( error );
@@ -144,10 +150,16 @@ exports.new = function( req, res )
 
 exports.create = function( req, res )
 	{
+	// añade el campo UserId, guardado en la sessión al objeto req.body.quiz del formulario de creación de quizes
+	req.body.quiz.UserId   = req.session.user.id;
+	// añade el campo UserName, guardado en la sessión al objeto req.body.quiz del formulario de creación de quizes
+	req.body.quiz.UserName = req.session.user.username;
 	// crea un objeto Quiz que inicializa con el req.body
 	var quiz = models.Quiz.build( req.body.quiz );
 
-	quiz.validate().then( function( err )
+	quiz
+	.validate()
+	.then( function( err )
 		{
 		if ( err )
 			{
@@ -158,13 +170,16 @@ exports.create = function( req, res )
 			{
 			// guarda el objeto quiz en DB con los campos pregunta y respuesta de quiz
 			// para evitar que en la trasacción un ManInTheMiddle añada campos adicionales al form
-			quiz.save( { fields: ["pregunta", "respuesta", "indice_tematico"]} ).then ( function()
+			quiz.save( { fields: ["pregunta", "respuesta", "indice_tematico", "UserId" ]} ).then ( function()
 				{
 				// redirección HTTP URL relativo a la lista de preguntas
 				res.redirect('/quizes');
 				});
 			}
-		});
+		}).catch(function ( error )
+			{
+			next( error );
+			});
 	};
 
 
@@ -196,7 +211,10 @@ exports.update = function( req, res )
 	req.quiz.respuesta       = req.body.quiz.respuesta;
 	req.quiz.indice_tematico = req.body.quiz.indice_tematico;
 
-	req.quiz.validate().then( function( err )
+	req
+	.quiz
+	.validate()
+	.then( function( err )
 		{
 		if ( err )
 			{
@@ -224,7 +242,10 @@ exports.update = function( req, res )
 
 exports.destroy = function( req, res )
 	{
-	req.quiz.destroy().then( function()
+	req
+	.quiz
+	.destroy()
+	.then( function()
 		{
 		res.redirect('/quizes');
 		}).catch( function( error )
